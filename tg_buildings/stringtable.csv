@@ -1,0 +1,45 @@
+﻿LANGUAGE,"English","German"
+
+//Structures, Gebäude\\
+
+STR_GDI_CY,"GDI Construction Yard","GDI Bauhof"
+STR_GDI_PP,"GDI Powerplant","GDI Kraftwerk"
+STR_GDI_BA,"GDI Barracks","GDI Barracken"
+STR_GDI_TR,"GDI Tiberium Refinery","GDI Tiberium Raffinerie"
+STR_GDI_TS,"GDI Tiberium Silo","GDI Tiberium Silo"
+STR_GDI_CT,"GDI Component Tower","GDI Basisturm"
+STR_GDI_WF,"GDI Warfactory","GDI Waffenfabrik"
+STR_GDI_R,"GDI Radar","GDI Radar"
+STR_GDI_HP,"GDI Helipad","GDI Helipad"
+STR_GDI_W,"GDI Wall","GDI Mauer"
+STR_GDI_W2,"GDI Wall 2","GDI Mauer 2"
+STR_GDI_W3,"GDI Wall 3","GDI Mauer3"
+STR_GDI_GT,"GDI Guard Tower","GDI Wachtturm"
+STR_GDI_G,"GDI Gate","GDI Tor"
+STR_GDI_EMP,"GDI E.M.P. Canon","GDI E.M.P. Kanone"
+STR_GDI_RP,"GDI Repairpad","GDI Reperatur Werkstatt"
+STR_GDI_CC,"GDI Command Center","GDI Kommunikationszentrale"
+
+
+
+
+STR_NOD_CY,"NOD Construction Yard","NOD Bauhof"
+STR_NOD_PP,"NOD Powerplant","NOD Kraftwerk"
+STR_NOD_HON,"Hand of NOD","Hand von NOD"
+STR_NOD_TR,"NOD Tiberium Refinery","NOD Tiberium Raffinerie"
+STR_NOD_TS,"NOD Tiberium Silo","NOD Tiberium Silo"
+STR_NOD_R,"NOD Radar","NOD Radar"
+STR_NOD_W,"NOD Wall","NOD Mauer"
+STR_NOD_LF,"NOD Laser Fence","NOD Laser Zaun"
+STR_NOD_G,"NOD Gate","NOD Tor"
+
+
+
+
+STR_CIV_OF1,"Office Building 1","Bürogebäude 1"
+STR_CIV_OF2,"Office Building 2","Bürogebäude 2"
+STR_CIV_SP,"Solar Panel","Solar Installation"
+STR_CIV_TANK,"Water Tank","Wassertank"
+STR_CIV_LP1,"Lightpost white","Lichtpfosten weiss"
+STR_CIV_LP2,"Lightpost2 white","Lichtpfosten2 weiss"
+STR_CIV_SUB,"Old Building","Altes Gebäude"
