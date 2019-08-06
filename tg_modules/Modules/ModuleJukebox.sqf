@@ -1,4 +1,6 @@
 
+#include "..\variables.h"
+
 #define JUKEBOX_PRESET_ALL 0
 #define JUKEBOX_PRESET_ONLY_STEALTH 1
 #define JUKEBOX_PRESET_ONLY_ACTION 2
@@ -82,7 +84,7 @@ for [{_i = 0},{_i < count _poolWeighted },{ _i = _i + 1}] do {
 };
 
 /* Store the track pool in the Logic namespace */
-_logic setVariable ["TG_TRACKS_POOL", _poolWeighted];
+_logic setVariable [LOGIC_JUKEBOX_TRACKS_POOL, _poolWeighted];
 
 while { true } do 
 {
@@ -98,8 +100,6 @@ while { true } do
 	if ( _id == -1 ) exitWith {
 		["Error: addMusicEventHandler returned -1"] call BIS_fnc_error;
 	};
-
-	_logic setVariable ["TG_MusicEH_ID", _id];
 
 	/* Wait until a user-defined condition is true */
 	WaitUntil { sleep 1; call _stopCondition };

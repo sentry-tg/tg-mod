@@ -1,4 +1,6 @@
 
+#include "..\variables.h"
+
 params ["_logic"];
 
 _sleepConst = _logic getvariable "GrowthSleep";
@@ -24,14 +26,14 @@ while { !isNull _logic } do
 		
 		if !( isNull _father ) then //	Checking that the crystal has not been harvested
 		{
-			_FieldRadius = _father getVariable "TG_FieldRadius";
-			_FieldCenter = _father getVariable "TG_FieldCenter";
+			_FieldRadius = _father getVariable SPAWNER_TIBERIUM_FIELDRADIUS;
+			_FieldCenter = _father getVariable SPAWNER_TIBERIUM_FIELDCENTER;
 			
 			_proposedCoordinates = [];
 			
 			if ( _FieldRadius == 0 || _father distance _FieldCenter < _FieldRadius ) then {
 				_proposedCoordinates = [_father, _dirToGrandpa, _childrenPerFather, _crystalRadius, _steepness] call TG_fnc_TiberiumGetChildrenPos;
-			} 
+			}
 			else {
 				/* 
 					This crystal is too far from the center of his field, so 

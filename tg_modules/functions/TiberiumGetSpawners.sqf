@@ -1,7 +1,9 @@
 
-_spawners = missionNameSpace getVariable ["TG_TiberiumSpawners", []];
+#include "..\variables.h"
+
+_spawners = missionNameSpace getVariable [MISSION_TIBERIUM_SPAWNERS, []];
 _spawners = +_spawners;
 
-missionNameSpace setVariable ["TG_TiberiumSpawners", []];
+missionNameSpace setVariable [MISSION_TIBERIUM_SPAWNERS, []];
 
 _spawners

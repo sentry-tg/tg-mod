@@ -1,3 +1,5 @@
+/*
+#include "..\variables.h"
 
 params ["_harvester", "_crystal"];
 
@@ -21,7 +23,7 @@ switch (typeOf _crystal) do {
 _curLoad = _curLoad +  _price;
 if (_curLoad > _maxLoad) then { _curLoad = _maxLoad; };
 
-_unit setVariable ["TG_curLoad", _curLoad, TRUE];
+_unit setVariable [HARVESTER_TIBERIUM_CURRENTLOAD, _curLoad, TRUE];
 _pos = position _crystal;
 
 deleteVehicle _crystal;
@@ -35,11 +37,8 @@ _harvester animate ["shovel3", 0];
 //	Awaking crystals
 _crystals = nearestObjects [_pos, _fertileClasses, _awakeDistance, true];
 {
-	_input = _x getVariable "TG_input";
+	_input = _x getVariable "TG_input"; // Put this into variables.h
 	if (!isNil {_input}) then {_input spawn FS_fnc_SpawnTiberium};
 }
 forEach _crystals;
-
-
-
-
+*/

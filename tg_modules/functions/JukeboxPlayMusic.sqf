@@ -1,10 +1,12 @@
 
+#include "..\variables.h"
+
 params ["_logic"];
 
 if !(isServer) exitWith {};
 
 _announceTracks = ( _logic getVariable ['AnnounceTracks', 0] ) == 1;
-_poolWeighted = _logic getVariable ['TG_TRACKS_POOL', []];
+_poolWeighted = _logic getVariable [LOGIC_JUKEBOX_TRACKS_POOL, []];
 	
 /* 1) If there is only one track in the pool, let it have non-zero weight */
 if ( count _poolWeighted == 2 ) then { _poolWeighted set [1, 1] };
@@ -27,7 +29,7 @@ _poolWeighted = _poolWeighted apply {
 _poolWeighted set [_newTrackID + 1, 0];
 
 /* 5) Store the track pool in the Logic namespace */
-_logic setVariable ["TG_TRACKS_POOL", _poolWeighted];
+_logic setVariable [LOGIC_JUKEBOX_TRACKS_POOL, _poolWeighted];
 
 /* 6) Run the track on all connected clients */
 [_newTrack] remoteExec ["playMusic", 0];

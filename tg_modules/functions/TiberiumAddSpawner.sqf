@@ -1,13 +1,15 @@
 
+#include "..\variables.h"
+
 params ["_spawner", ["_type", ""], "_fieldCenter", "_fieldRadius"];
 
-_spawners = missionNameSpace getVariable ["TG_TiberiumSpawners", []];
+_spawners = missionNameSpace getVariable [MISSION_TIBERIUM_SPAWNERS, []];
 _spawners pushBackUnique _spawner;
 
 if ( _type != "" ) then {
-	_spawner setVariable ["TG_TypeOf", _type];
-	_spawner setVariable ["TG_FieldCenter", _fieldCenter];
-	_spawner setVariable ["TG_FieldRadius", _fieldRadius];
+	_spawner setVariable [SPAWNER_TIBERIUM_TYPEOF, _type];
+	_spawner setVariable [SPAWNER_TIBERIUM_FIELDCENTER, _fieldCenter];
+	_spawner setVariable [SPAWNER_TIBERIUM_FIELDRADIUS, _fieldRadius];
 };
 
-missionNameSpace setVariable ["TG_TiberiumSpawners", _spawners];
+missionNameSpace setVariable [MISSION_TIBERIUM_SPAWNERS, _spawners];
