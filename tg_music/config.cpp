@@ -9,6 +9,7 @@ class CfgPatches
 		requiredAddons[] = {};
 	};
 };
+
 class CfgMusic
 {
 	class TG_TimeBomb
@@ -139,12 +140,12 @@ class CfgMusic
 	class TG_RainInTheNight
 	{
 		name = "TG Rain in the Night";
-		sound[] = {"\tg_music\FireStorm\RainintheNight.ogg",4.0,1.0};
+		sound[] = {"\tg_music\FireStorm\RainInTheNight.ogg",4.0,1.0};
 	};
 	class TG_SlaveToTheSystem
 	{
 		name = "TG Slave to the System";
-		sound[] = {"\tg_music\FireStorm\SlavetotheSystem.ogg",4.0,1.0};
+		sound[] = {"\tg_music\FireStorm\SlaveToTheSystem.ogg",4.0,1.0};
 	};
 	class TG_DeployMachines
 	{
