@@ -21,7 +21,7 @@
 params ["_building", "_size", ["_margin", [0,0,0]], "_return"];
 
 if (isNil{ _size }) then {
-	_size = _building call BIS_fnc_boundingBoxDimensions
+	_size = _building call BIS_fnc_boundingBoxDimensions;
 };
 
 _size = _size vectorAdd _margin;
