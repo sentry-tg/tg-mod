@@ -1661,8 +1661,8 @@ class CfgAnimationSourceSounds {
 
 class CfgFunctions 
 {
-	class Tiberian_Genesis {
-		class Main 
+	class TG {
+		class Buildings
 		{
 			class init {
 				file = "\tg_buildings\init.sqf";	
