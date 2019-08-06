@@ -1,13 +1,11 @@
 
-#define TG_ADDON_DEPENDENCY_MUSIC "tg_music"
-
 class CfgPatches
 {
 	class tg_modules
 	{
 		units[] = {};
 		weapons[] = {};
-		requiredAddons[] = {"tg_core", "tg_obj"};
+		requiredAddons[] = {"tg_core", "tg_obj", "tg_music"};
 		requiredVersion = 0.100000;
 		author = "Tiberian Genesis Team";
 		url = "";
@@ -28,20 +26,23 @@ class CfgFunctions
 {
 	class TG {
 		class Modules {
+			class VisualizeModuleRadius3DEN {
+				file = "\tg_modules\Modules\VisualizeModuleRadius3DEN.sqf";
+			};
 			class ModuleTiberiumGardener {
 				file = "\tg_modules\Modules\ModuleTiberiumGardener.sqf";
 			};
 			class ModuleTiberiumAddSpawner {
 				file = "\tg_modules\Modules\ModuleTiberiumAddSpawner.sqf";
 			};
-			class VisualizeModuleRadius3DEN {
-				file = "\tg_modules\Modules\VisualizeModuleRadius3DEN.sqf";
-			};
 			class ModuleTiberiumDamage {
 				file = "\tg_modules\Modules\ModuleTiberiumDamage.sqf";
 			};
 			class ModuleAICommander {
 				file = "\tg_modules\Modules\ModuleAICommander.sqf";
+			};
+			class ModuleJukebox {
+				file = "\tg_modules\Modules\ModuleJukebox.sqf";
 			};
 
 		};
@@ -100,15 +101,12 @@ class CfgFunctions
 				file = "\tg_modules\functions\IsFlatEmpty.sqf";
 			};
 		};
-		/*
-		class JukeBox 
-		{
-			class JukeboxAddPlayer {
-				file = "\tg_modules\functions\Jukebox.sqf";
-				requiredAddons[] = {TG_ADDON_DEPENDENCY_MUSIC};
+		class Jukebox {
+			class JukeboxPlayMusic {
+				file = "\tg_modules\functions\JukeboxPlayMusic.sqf";
 			};
+			
 		};
-		*/
 	};
 };
 
@@ -337,61 +335,94 @@ class CfgVehicles {
 	// 				 Jukebox			   \\
 	// +++++++++++++++++++++++++++++++++++ \\
 	
-	/*
-	class TG_ModuleJukebox_Base : TG_Module {
-		//requiredAddons[] = {TG_ADDON_DEPENDENCY_MUSIC};
+	class TG_ModuleJukebox : TG_Module {
+		_generalMacro = "TG_ModuleJukebox";
+		scope = 2;
+		displayName = "Jukebox";
+		function = "TG_fnc_ModuleJukebox";
 		isDisposable = 1; // 1 if modules is to be disabled once it's activated (i.e., repeated trigger activation won't work)
 		isGlobal = 0; // 0 for server only execution, 1 for global execution, 2 for persistent global execution
-	};
-	
-	class TG_ModuleJukeboxAddPlayer : TG_ModuleJukebox_Base {
-		_generalMacro = "TG_ModuleJukeboxAddPlayer";
-		scope = 2;
-		displayName = "Add Jukebox";
-		function = "";
 		class ModuleDescription : ModuleDescription {
-			description = "";
+			description = "Module that runs on server and plays music for all connected clients";
 			sync[] = {};
 		};
 		class Attributes : AttributesBase {
-			class TrackSelection: Combo {
-				property = "ModuleJukeboxAddPlayer_TrackSelection";
-				displayName = "Track selection"; // Argument label
-				tooltip = "How the new track is selected. Random Weighted means the tracks that haven't been played for a while will have a better chance of selection"; // Tooltip description
+			class AnnounceTracks : CheckboxNumber { //["Default"]
+				property = "ModuleJukebox_AnnounceTracks";
+				displayName = "Announce tracks";
+				tooltip = "Announce track names in system chat";
+				typeName = "NUMBER";
+				defaultValue = 0;
+			};
+			class Preset: Combo {
+				property = "ModuleJukebox_Preset";
+				displayName = "Preset"; // Argument label
+				tooltip = "A quick way to setup the general mood of the tracks played"; // Tooltip description
 				typeName = "NUMBER"; // Value type, can be "NUMBER", "STRING" or "BOOL"
-				defaultValue = "0"; // Default attribute value. WARNING: This is an expression, and its returned value will be used 
-				class Values {
-					class Random {
-						name = "Random Wighted";
+				defaultValue = "0"; // Default attribute value. WARNING: This is an expression, and its returned value will be used (50 in this case)
+				class Values
+				{
+					class AllTracks {
+						name = "All Tiberian Genesis tracks";
 						value = 0;
 						default = 1;
 					};
+					class Stealth {
+						name = "Stealth Tiberian Genesis tracks";
+						value = 1;
+					};
+					class Action {
+						name = "Action Tiberian Genesis tracks";
+						value = 2;
+					};
+					class Custom {
+						name = "Custom tracks";
+						value = 3;
+					};
 				};
 			};
-			class Enabled : CheckboxNumber { //["Default"]
-				property = "ModuleJukeboxAddPlayer_Enabled";
-				displayName = "Enabled";
-				tooltip = "Synced objects will start playing music immediately after mission start";
+			class CustomTracks: Edit {
+				property = "ModuleJukebox_CustomTracks";
+				displayName = "Custom tracks";
+				tooltip = "If preset is set to Custom, the tracks from this array are played instead";
+				defaultValue = "['LeadTrack01_F_EPA', 'LeadTrack04_F_EPC']";
+			};	
+			class StartCondition: Edit {
+				property = "ModuleJukebox_StartCondition";
+				displayName = "Start condition";
+				tooltip = "Condition that has to be true in order for this module to start working. Condition is checked every second and only on Server";
+				defaultValue = "true";
+			};
+			class StopCondition: Edit {
+				property = "ModuleJukebox_StopCondition";
+				displayName = "Stop condition";
+				tooltip = "Condition that has to be true in order for this module to stop working, after which the module will delete itself. Condition is checked every second and only on Server";
+				defaultValue = "false";
+			};
+			class LoopConditions : CheckboxNumber { //["Default"]
+				property = "ModuleJukebox_LoopConditions";
+				displayName = "Loop conditions";
+				tooltip = "If enabled, instead of deleting itself, the module will restart after Stop Condition turned true. It allows a cycle: Start Condition -> Stop Condition -> Start Condition -> etc. Use this if you want to be able to stop and resume the work of the module";
 				typeName = "NUMBER";
 				defaultValue = 0;
 			};
-			class SameStation : CheckboxNumber { //["Default"]
-				property = "ModuleJukeboxAddPlayer_SameStation";
-				displayName = "Same station";
-				tooltip = "If enabled, all synced objects will always be playing the same track";
+			class StopMusic : CheckboxNumber { //["Default"]
+				property = "ModuleJukebox_StopMusic";
+				displayName = "Stop music when finished";
+				tooltip = "The track that was playing when Stop Condition evaluated true will be silenced. Uses fadeMusic.";
 				typeName = "NUMBER";
 				defaultValue = 0;
 			};
-			class Radius : Edit {
-				property = "ModuleJukeboxAddPlayer_Radius";
-				displayName = "Radius";
-				tooltip = "Maximum distance from the emitter at which the the music is audible";
+			class DisableACEVolumeUpdate : CheckboxNumber { //["Default"]
+				property = "ModuleJukebox_DisableACEVolumeUpdate";
+				displayName = "Disable ACE volume update";
+				tooltip = "Enable this if you are having issues with fadeMusic when running ACE (ACE prevents correct use of fadeMusic command)";
 				typeName = "NUMBER";
-				defaultValue = 30;
+				defaultValue = 0;
 			};
 		};
 	};
-	*/
+	
 	
 	/*
 	class TG_ModuleCommander : TG_Module {
