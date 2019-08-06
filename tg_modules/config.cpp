@@ -172,7 +172,7 @@ class CfgVehicles {
 				displayName = "Minimum distance between crystals";
 				description = "Greater values will spawn crystals further from each other";
 				typeName = "NUMBER";
-				defaultValue = 3;
+				defaultValue = 2;
 			};
 			class HideObjectRadius {
 				displayName = "Terrain objects removal";

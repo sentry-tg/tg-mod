@@ -16,6 +16,12 @@ private "_i";
 private "_proposedCoords";
 _proposedCoords = [];
 
+if ( isNull _father ) exitWith {};
+
+_size = _father call BIS_fnc_boundingBoxDimensions;
+_size params ["_x", "_y", "_z"];
+_shortestSide = [_x, _y] select ( _x > _y );
+
 for [{_i = 1}, {_i < _sweeps && _childrenCount > 0}, {_i = _i + 1}] do 
 {
 	_sweep = _dirToGrandpa + _i * _degreeInc * _sweepDirection;
@@ -23,7 +29,8 @@ for [{_i = 1}, {_i < _sweeps && _childrenCount > 0}, {_i = _i + 1}] do
 	if ( _sweep > 360 ) then { _sweep = _sweep % 360; };
 	
 	if ( isNull _father ) exitWith {};
-	_sweepPosition = _father getPos [_distance * 1.5, _sweep];
+
+	_sweepPosition = _father getPos [_shortestSide + _distance * 1.5, _sweep];
 	_sweepPosition = [_sweepPosition, _distance, _obstaclesSearchRadius, _ignore, _param] call TG_fnc_IsFlatEmpty;
 	
 	if ( count _sweepPosition > 0 ) then 
