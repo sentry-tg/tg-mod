@@ -68,7 +68,7 @@ _jetpackControl = [] spawn
 		_buffer set [2, _buffer # 2 - _gravImpact];
 		//hint str _buffer;
 		
-		player setVelocity (player modelToWorld _buffer vectorDiff (player modelToWorld [0,0,0]));
+		player setVelocityModelSpace _buffer;
 		
 		sleep 0.1;
 	};
