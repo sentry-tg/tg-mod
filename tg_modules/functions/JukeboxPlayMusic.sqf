@@ -37,5 +37,5 @@ _logic setVariable [LOGIC_JUKEBOX_TRACKS_POOL, _poolWeighted];
 /* 7) Write track name in chat if enabled */
 if ( _announceTracks ) then {
 	_name = getText (configFile >> "CfgMusic" >> _newTrack >> "name");
-	SystemChat format ["Now playing: %1", _name];
+	[format ["Now playing: %1", _name]] remoteExec ["SystemChat", 0];
 };
