@@ -12,6 +12,7 @@ _childrenPerFather = _logic getvariable "ChildrenPerFather";
 _greenPhaseTime = _logic getvariable "GreenTiberiumPhaseTime";
 _bluePhaseTime = _logic getvariable "BlueTiberiumPhaseTime";
 _purplePhaseTime = _logic getvariable "PurpleTiberiumPhaseTime";
+_redPhaseTime = _logic getvariable "RedTiberiumPhaseTime";
 
 _tiberiumKind = "TG_Tiberium";
 
@@ -56,7 +57,7 @@ while { !isNull _logic } do
 	
 	for [{_i = 0},{_i < count _acceptedCoords},{_i = _i + 1}] do {
 		( _acceptedCoords # _i ) params ["_father", "_pos", "_dirToGrandpa"];
-		[_pos, _father, _hideRadius, _greenPhaseTime, _bluePhaseTime, _purplePhaseTime] call TG_fnc_TiberiumSpawnCrystal;
+		[_pos, _father, _hideRadius, _greenPhaseTime, _bluePhaseTime, _purplePhaseTime, _redPhaseTime] call TG_fnc_TiberiumSpawnCrystal;
 		sleep ( _sleepConst + _sleepRnd );
 	};
 	_acceptedCoords resize 0;

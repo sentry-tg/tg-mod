@@ -18,6 +18,7 @@ switch _mode do {
 		switch ( _color ) do {
 			case 1: { _fakeType = "TG_TiberiumBlue_1"; };
 			case 2: { _fakeType = "TG_TiberiumPurple_1"; };
+			case 3: { _fakeType = "TG_TiberiumRed_1"; };
 			default { _fakeType = "TG_TiberiumGreen_1"; };
 		};
 		_synced = synchronizedObjects _logic;

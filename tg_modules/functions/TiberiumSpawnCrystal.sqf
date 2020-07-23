@@ -1,7 +1,7 @@
 
 #include "..\variables.h"
 
-params ["_pos", "_father", "_hideRadius", "_greenPhaseTime", "_bluePhaseTime", "_purplePhaseTime"];
+params ["_pos", "_father", "_hideRadius", "_greenPhaseTime", "_bluePhaseTime", "_purplePhaseTime", "_redPhaseTime"];
 
 //	Abort if the father has been harvested
 if ( isNull _father ) exitWith {};  
@@ -30,6 +30,12 @@ _purple = [
 	"TG_TiberiumPurple_1"
 ];
 
+_red = [
+	"TG_TiberiumRed_1_Seedling",
+	"TG_TiberiumRed_1_Medium",
+	"TG_TiberiumRed_1"
+];
+
 _time = _greenPhaseTime;
 _phases = _green;
 _crystalClass = _green # 0;
@@ -44,6 +50,12 @@ if ( _type in _purple ) then {
 	_time = _purplePhaseTime; 
 	_phases = _purple;
 	_crystalClass = _purple # 0;
+};
+
+if ( _type in _red ) then {
+	_time = _redPhaseTime; 
+	_phases = _red;
+	_crystalClass = _red # 0;
 };
 
 

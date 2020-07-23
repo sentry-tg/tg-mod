@@ -210,6 +210,12 @@ class CfgVehicles {
 				typeName = "NUMBER";
 				defaultValue = 128;
 			};
+			class RedTiberiumPhaseTime {
+				displayName = "Red Tiberium phase time";
+				description = "Time needed for the seedling to grow into a medium crystal, and for a medium to turn into a fully matured crystal";
+				typeName = "NUMBER";
+				defaultValue = 128;
+			};
 		};
 	};
 	
@@ -242,6 +248,13 @@ class CfgVehicles {
 				tooltip = "The profits from processing Tiberium crystals in Refinery. The cost is for seedling, medium and mature crystals accordingly";
 				//control = "EditShort"; // For shorter input field
 				defaultValue = "[768, 1304, 2400]";
+			};	
+			class Red : Edit { //["Default"]
+				property = "RedTiberiumCost";
+				displayName = "Red Tiberium";
+				tooltip = "The profits from processing Tiberium crystals in Refinery. The cost is for seedling, medium and mature crystals accordingly";
+				//control = "EditShort"; // For shorter input field
+				defaultValue = "[0, 0, 0]";
 			};
 		};
 	};
@@ -277,6 +290,10 @@ class CfgVehicles {
 					class TiberiumPurple {
 						name = "Purple Tiberium";
 						value = 2;
+					};
+					class TiberiumRed {
+						name = "Red Tiberium";
+						value = 3;
 					};
 				};
 			};
@@ -422,130 +439,4 @@ class CfgVehicles {
 			};
 		};
 	};
-	
-	
-	/*
-	class TG_ModuleCommander : TG_Module {
-		_generalMacro = "TG_ModuleCommander";
-		scope = 2;
-		is3DEN = 1;
-		displayName = "AI Commander";
-		function = "TG_fnc_ModuleCommander";
-		isDisposable = 1; // 1 if modules is to be disabled once it's activated (i.e., repeated trigger activation won't work)
-		isGlobal = 0; // 0 for server only execution, 1 for global execution, 2 for persistent global execution
-
-		class Attributes : AttributesBase {
-			class CommanderName : Edit {
-				property = "TG_ModuleCommander_Name";
-				displayName = "Name (optional)";
-				tooltip = "Must be unique. Use '['%COMMANDERNAME%', this] call TG_fnc_CommanderClaim;' in init fields of units you want to be controlled by this commander";
-				defaultValue = "format['Commander%1', round random 1000000]";
-			};
-			
-			class Side: Combo
-  			{
-				// Unique property, use "<moduleClass>_<attributeClass>" format to make sure the name is unique in the world
-				property = "TG_ModuleCommander_Side";
-				displayName = "Side"; // Argument label
-				tooltip = "Side of this AI commander"; // Tooltip description
-				typeName = "NUMBER"; // Value type, can be "NUMBER", "STRING" or "BOOL"
-				defaultValue = "0"; // Default attribute value. WARNING: This is an expression, and its returned value will be used (50 in this case)
-				class Values
-				{
-					class WEST {
-						name = "GDI (BLUFOR)";
-						value = 0;
-						default = 1;
-					};
-					class EAST {
-						name = "NOD (OPFOR)";
-						value = 1;
-					};
-					class GUER {
-						name = "Independent";
-						value = 2;
-					};
-				};
-			};
-			
-			class Preset: Combo
-  			{
-				// Unique property, use "<moduleClass>_<attributeClass>" format to make sure the name is unique in the world
-				property = "TG_ModuleCommander_Difficulty";
-				displayName = "Preset"; // Argument label
-				tooltip = "How difficult it is to defeat this AI"; // Tooltip description
-				typeName = "STRING"; // Value type, can be "NUMBER", "STRING" or "BOOL"
-				defaultValue = "Normal"; // Default attribute value. WARNING: This is an expression, and its returned value will be used (50 in this case)
-				class Values
-				{
-					class Easy {
-						name = "Easy";
-						value = "Easy";
-					};
-					class Normal {
-						name = "Normal";
-						value = "Normal";
-						default = 1;
-					};
-					class Hard {
-						name = "Hard";
-						value = "Hard";
-					};
-					class Impossible {
-						name = "Impossible";
-						value = "Impossible";
-					};
-				};
-			};
-			class Radius: Edit
-  			{
-				property = "TG_ModuleCommander_Radius";
-				
-				displayName = "Claim radius";
-				tooltip = "Everything within this radius will be claimed as a property of this commander. Units and vehicles will be taken under control, buildings captured and recolored according to commander's color scheme (if applicable)";
-				typeName = "NUMBER";
-				defaultValue = 0;
-			};	
-			class ModuleDescription : ModuleDescription {};
-		};
-		class ModuleDescription : ModuleDescription {
-			description = "AI Commander module. Will take control of all synced entities, entities within Claim Radius, or entities with '['%COMMANDERNAME%', this] call TG_fnc_CommanderClaim;' in their init field. ";
-			sync[] = {"Anything"}; // Array of synced entities (can contain base classes)
-		};
-		
-	};
-	*/
 };
-/*
-class CfgTGAITemplates 
-{
-	class Default {
-		maxWalls = 10;
-		maxTurrets = 5;
-		maxTanks = 10;
-		maxInfantry = 50;
-		priorityWalls = 1;
-		priorityTurrets = 1;
-		priorityTanks = 1; 
-		priorityInfantry = 1;
-		aggression = 1; // real priority = [tanks|inf] * aggression 
-		incomeMultiplier = 1;
-	};
-	class Easy : Default {
-		maxTurrets = 2;
-		maxTanks = 5;
-		maxInfantry = 30;
-		incomeMultiplier = 0.5;
-	};
-	class Normal : Default { };
-	class Hard : Default {
-		incomeMultiplier = 1.5;
-	};
-	class Impossible : Default {
-		maxTurrets = 10;
-		maxTanks = 20;
-		maxInfantry = 100;
-		incomeMultiplier = 2;
-	};
-	
-}; */
