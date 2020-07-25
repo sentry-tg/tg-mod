@@ -14,8 +14,6 @@ _bluePhaseTime = _logic getvariable "BlueTiberiumPhaseTime";
 _purplePhaseTime = _logic getvariable "PurpleTiberiumPhaseTime";
 _redPhaseTime = _logic getvariable "RedTiberiumPhaseTime";
 
-_tiberiumKind = "TG_Tiberium";
-
 while { !isNull _logic } do 
 {
 	_fathers = [] call TG_fnc_TiberiumGetSpawners;
@@ -47,7 +45,7 @@ while { !isNull _logic } do
 				// Preliminary check that should filter out most of the coordinates
 				if ( _acceptedCoords findIf { (_x # 1) distance _candidate < _crystalRadius } < 0 ) then {
 					// Final check
-					if ( count( _candidate nearEntities [_tiberiumKind, _crystalRadius] ) <= 0 ) then { 
+					if ( count( _candidate nearEntities [TIBERIUM_ROOT_CLASS, _crystalRadius] ) <= 0 ) then { 
 						_acceptedCoords pushBack [_father, _candidate, _candidate getDir _father];
 					};
 				};

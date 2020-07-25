@@ -12,52 +12,27 @@ _type = _father getVariable [SPAWNER_TIBERIUM_TYPEOF, typeOf _father];
 _fieldRadius = _father getVariable SPAWNER_TIBERIUM_FIELDRADIUS;
 _fieldCenter = _father getVariable SPAWNER_TIBERIUM_FIELDCENTER;
 
-_green = [
-	"TG_TiberiumGreen_1_Seedling",
-	"TG_TiberiumGreen_1_Medium",
-	"TG_TiberiumGreen_1"
-];
-
-_blue = [
-	"TG_TiberiumBlue_1_Seedling",
-	"TG_TiberiumBlue_1_Medium",
-	"TG_TiberiumBlue_1"
-];
-
-_purple = [
-	"TG_TiberiumPurple_1_Seedling",
-	"TG_TiberiumPurple_1_Medium",
-	"TG_TiberiumPurple_1"
-];
-
-_red = [
-	"TG_TiberiumRed_1_Seedling",
-	"TG_TiberiumRed_1_Medium",
-	"TG_TiberiumRed_1"
-];
-
 _time = _greenPhaseTime;
-_phases = _green;
-_crystalClass = _green # 0;
+_phases = TIBERIUM_GREEN;
+_crystalClass = TIBERIUM_GREEN # 0;
 
-if ( _type in _blue ) then {
+if ( _type in TIBERIUM_BLUE ) then {
 	_time = _bluePhaseTime; 
-	_phases = _blue;
-	_crystalClass = _blue # 0;
+	_phases = TIBERIUM_BLUE;
+	_crystalClass = TIBERIUM_BLUE # 0;
 };
 
-if ( _type in _purple ) then {
+if ( _type in TIBERIUM_PURPLE ) then {
 	_time = _purplePhaseTime; 
-	_phases = _purple;
-	_crystalClass = _purple # 0;
+	_phases = TIBERIUM_PURPLE;
+	_crystalClass = TIBERIUM_PURPLE # 0;
 };
 
-if ( _type in _red ) then {
+if ( _type in TIBERIUM_RED ) then {
 	_time = _redPhaseTime; 
-	_phases = _red;
-	_crystalClass = _red # 0;
+	_phases = TIBERIUM_RED;
+	_crystalClass = TIBERIUM_RED # 0;
 };
-
 
 //_crystal = createSimpleObject [_crystalClass, _pos];
 _crystal = _crystalClass createVehicle _pos;

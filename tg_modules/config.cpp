@@ -26,25 +26,13 @@ class CfgFunctions
 {
 	class TG {
 		class Modules {
-			class VisualizeModuleRadius3DEN {
-				file = "\tg_modules\Modules\VisualizeModuleRadius3DEN.sqf";
-			};
-			class ModuleTiberiumGardener {
-				file = "\tg_modules\Modules\ModuleTiberiumGardener.sqf";
-			};
-			class ModuleTiberiumAddSpawner {
-				file = "\tg_modules\Modules\ModuleTiberiumAddSpawner.sqf";
-			};
-			class ModuleTiberiumDamage {
-				file = "\tg_modules\Modules\ModuleTiberiumDamage.sqf";
-			};
-			class ModuleAICommander {
-				file = "\tg_modules\Modules\ModuleAICommander.sqf";
-			};
-			class ModuleJukebox {
-				file = "\tg_modules\Modules\ModuleJukebox.sqf";
-			};
-
+			class VisualizeModuleRadius3DEN { file = "\tg_modules\Modules\VisualizeModuleRadius3DEN.sqf"; };
+			class ModuleTiberiumGardener { file = "\tg_modules\Modules\ModuleTiberiumGardener.sqf"; };
+			class ModuleTiberiumAddSpawner { file = "\tg_modules\Modules\ModuleTiberiumAddSpawner.sqf"; };
+			class ModuleTiberiumDamage { file = "\tg_modules\Modules\ModuleTiberiumDamage.sqf"; };
+			class ModuleAICommander { file = "\tg_modules\Modules\ModuleAICommander.sqf"; };
+			class ModuleJukebox { file = "\tg_modules\Modules\ModuleJukebox.sqf"; };
+			class ModuleTiberiumCrystalValue { file = "\tg_modules\Modules\ModuleTiberiumCrystalValue.sqf"; };
 		};
 		/*
 		class AI {
@@ -59,53 +47,45 @@ class CfgFunctions
 			};
 		};*/
 		class Harvester {
-			class HarvesterHarvest {
-				file = "\tg_modules\functions\HarvesterHarvest.sqf";
-			};
+			class HarvesterAddCapacity { file = "\tg_modules\functions\HarvesterAddCapacity.sqf"; };
+			class HarvesterCanHarvest { file = "\tg_modules\functions\HarvesterCanHarvest.sqf"; };
+			class HarvesterCanUnload { file = "\tg_modules\functions\HarvesterCanUnload.sqf"; };
+			class HarvesterClearActivity { file = "\tg_modules\functions\HarvesterClearActivity.sqf"; };
+			class HarvesterFindRefinery { file = "\tg_modules\functions\HarvesterFindRefinery.sqf"; };
+			class HarvesterFindResources { file = "\tg_modules\functions\HarvesterFindResources.sqf"; };
+			class HarvesterGetCapacity { file = "\tg_modules\functions\HarvesterGetCapacity.sqf"; };
+			class HarvesterGetOwner { file = "\tg_modules\functions\HarvesterGetOwner.sqf"; };
+			class HarvesterGetPreviousPosition { file = "\tg_modules\functions\HarvesterGetPreviousPosition.sqf"; };
+			class HarvesterHarvestOneTick { file = "\tg_modules\functions\HarvesterHarvestOneTick.sqf"; };
+			class HarvesterHasActivity { file = "\tg_modules\functions\HarvesterHasActivity.sqf"; };
+			class HarvesterIsEmpty { file = "\tg_modules\functions\HarvesterIsEmpty.sqf"; };
+			class HarvesterIsFull { file = "\tg_modules\functions\HarvesterIsFull.sqf"; };
+			class HarvesterSetActivity { file = "\tg_modules\functions\HarvesterSetActivity.sqf"; };
+			class HarvesterSetCapacity { file = "\tg_modules\functions\HarvesterSetCapacity.sqf"; };
+			class HarvesterSetOwner { file = "\tg_modules\functions\HarvesterSetOwner.sqf"; };
+			class HarvesterSetPreviousPosition { file = "\tg_modules\functions\HarvesterSetPreviousPosition.sqf"; };
+			class HarvesterUnloadOneTick { file = "\tg_modules\functions\HarvesterUnloadOneTick.sqf"; };
 		};
 		class Tiberium {
-			class TiberiumAddSpawner {
-				file = "\tg_modules\functions\TiberiumAddSpawner.sqf";
-			};
-			class TiberiumGetSpawners {
-				file = "\tg_modules\functions\TiberiumGetSpawners.sqf";
-			};
-			class TiberiumGardener {
-				file = "\tg_modules\functions\TiberiumGardener.sqf";
-			};
-			class TiberiumGetChildrenPos {
-				file = "\tg_modules\functions\TiberiumGetChildrenPos.sqf";
-			};
-			class TiberiumSpawnCrystal {
-				file = "\tg_modules\functions\TiberiumSpawnCrystal.sqf";
-			};
+			class TiberiumAddSpawner { file = "\tg_modules\functions\TiberiumAddSpawner.sqf"; };
+			class TiberiumGetSpawners { file = "\tg_modules\functions\TiberiumGetSpawners.sqf"; };
+			class TiberiumGardener { file = "\tg_modules\functions\TiberiumGardener.sqf"; };
+			class TiberiumGetChildrenPos { file = "\tg_modules\functions\TiberiumGetChildrenPos.sqf"; };
+			class TiberiumSpawnCrystal { file = "\tg_modules\functions\TiberiumSpawnCrystal.sqf"; };
 		};
 		class CommonFunctions
 		{
-			class LerpVector {
-				file = "\tg_modules\functions\LerpVector.sqf";
-			};
-			class GetCorners {
-				file = "\tg_modules\functions\GetCorners.sqf";
-			};
-			class GetCornersDiscrete {
-				file = "\tg_modules\functions\GetCornersDiscrete.sqf";
-			};
-			class SinkOrEmerge {
-				file = "\tg_modules\functions\SinkOrEmerge.sqf";
-			};
-			class CheckIntersection {
-				file = "\tg_modules\functions\CheckIntersection.sqf";
-			};
-			class IsFlatEmpty {
-				file = "\tg_modules\functions\IsFlatEmpty.sqf";
-			};
+			class AnimateSequence { file = "\tg_modules\functions\AnimateSequence.sqf"; };
+			class LerpVector { file = "\tg_modules\functions\LerpVector.sqf"; };
+			class GetCorners { file = "\tg_modules\functions\GetCorners.sqf"; };
+			class GetCornersDiscrete { file = "\tg_modules\functions\GetCornersDiscrete.sqf"; };
+			class SinkOrEmerge { file = "\tg_modules\functions\SinkOrEmerge.sqf"; };
+			class CheckIntersection { file = "\tg_modules\functions\CheckIntersection.sqf"; };
+			class IsFlatEmpty { file = "\tg_modules\functions\IsFlatEmpty.sqf"; };
+			class DistanceBetweenArrays { file = "\tg_modules\functions\DistanceBetweenArrays.sqf"; };
 		};
 		class Jukebox {
-			class JukeboxPlayMusic {
-				file = "\tg_modules\functions\JukeboxPlayMusic.sqf";
-			};
-			
+			class JukeboxPlayMusic { file = "\tg_modules\functions\JukeboxPlayMusic.sqf"; };
 		};
 	};
 };
@@ -223,7 +203,7 @@ class CfgVehicles {
 		_generalMacro = "TG_ModuleTiberiumCrystalValue";
 		scope = 2;
 		displayName = "Tiberium Value";
-		function = "";
+		function = "TG_fnc_ModuleTiberiumCrystalValue";
 		class ModuleDescription : ModuleDescription {
 			description = "Set cost for Tiberium crystals. This is a global module, so place only one per mission";
 		};

@@ -5,7 +5,7 @@
 */
 
 	// +++++++++++++++++++++++++++++++++++ \\
-	// 				 Jukebox			   \\
+	// 				 MODULES			   \\
 	// +++++++++++++++++++++++++++++++++++ \\
 	
 /* Where track pool is stored in the logic's namespace */
@@ -22,11 +22,41 @@
 /* Stores the radius of the tiberium field this object belongs to */
 #define SPAWNER_TIBERIUM_FIELDRADIUS "TG_FieldRadius"
 
+/* 	
+	The name of the global variable that, if defined, 
+	prevents other modules of this type to operate, 
+	effectively enforcing a singleton pattern 
+*/
+#define MISSION_MODULE_GARDENER "TG_ModuleTiberium"
+#define MISSION_MODULE_TIBERIUM_CRYSTAL_VALUE "TG_ModuleTiberiumCrystalValue"
+#define MISSION_MODULE_TIBERIUM_DAMAGE "TG_ModuleTiberiumDamage"
+
+
 /* A global variable that stores all tiberium spawners, used by harvesters */
 #define MISSION_TIBERIUM_SPAWNERS "TG_TiberiumSpawners"
+/* A class from which all tiberium crystals are inherited */
+#define TIBERIUM_ROOT_CLASS "TG_Tiberium"
+/* Classes, as well as phases of each color of tiberium */
+#define TIBERIUM_GREEN ["TG_TiberiumGreen_1_Seedling","TG_TiberiumGreen_1_Medium","TG_TiberiumGreen_1"]
+#define TIBERIUM_BLUE ["TG_TiberiumBlue_1_Seedling","TG_TiberiumBlue_1_Medium","TG_TiberiumBlue_1"]
+#define TIBERIUM_PURPLE ["TG_TiberiumPurple_1_Seedling","TG_TiberiumPurple_1_Medium","TG_TiberiumPurple_1"]
+#define TIBERIUM_RED ["TG_TiberiumRed_1_Seedling","TG_TiberiumRed_1_Medium","TG_TiberiumRed_1"]
 
 	// +++++++++++++++++++++++++++++++++++ \\
 	// 				 Harvester			   \\
 	// +++++++++++++++++++++++++++++++++++ \\
 
-#define HARVESTER_TIBERIUM_CURRENTLOAD "TG_curLoad"
+#define UNITS_HARVESTER_ACTIVITY "Activity"
+#define UNITS_HARVESTER_ACTIVITY_IDLE 0
+#define UNITS_HARVESTER_ACTIVITY_STANDBY 1
+#define UNITS_HARVESTER_OWNER "Owner"
+#define UNITS_HARVESTER_DEFAULT_OWNER objNull
+#define UNITS_HARVESTER_CAPACITY "Capacity"
+#define UNITS_HARVESTER_MAXCAPACITY "MaxCapacity"
+#define UNITS_HARVESTER_PREVIOUS_POSITION "PreviousPosition"
+#define UNITS_HARVESTER_PREVIOUS_POSITION_SEARCH_RADIUS 100
+#define UNITS_HARVESTER_MAX_DIST_TO_CRYSTAL 6
+#define UNITS_HARVESTER_MAX_DIST_TO_REFINERY 10
+#define UNITS_HARVESTER_REFINERY_CLASSES ["Land_dp_mainFactory_F"]
+#define UNITS_HARVESTER_UNLOAD_TIME 12
+

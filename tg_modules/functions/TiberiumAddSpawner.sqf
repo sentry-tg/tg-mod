@@ -12,4 +12,4 @@ if ( _type != "" ) then {
 	_spawner setVariable [SPAWNER_TIBERIUM_FIELDRADIUS, _fieldRadius];
 };
 
-missionNameSpace setVariable [MISSION_TIBERIUM_SPAWNERS, _spawners];
+missionNameSpace setVariable [MISSION_TIBERIUM_SPAWNERS, _spawners, true];

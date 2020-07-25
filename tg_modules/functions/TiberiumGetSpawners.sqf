@@ -4,6 +4,6 @@
 _spawners = missionNameSpace getVariable [MISSION_TIBERIUM_SPAWNERS, []];
 _spawners = +_spawners;
 
-missionNameSpace setVariable [MISSION_TIBERIUM_SPAWNERS, []];
+missionNameSpace setVariable [MISSION_TIBERIUM_SPAWNERS, [], true];
 
 _spawners
