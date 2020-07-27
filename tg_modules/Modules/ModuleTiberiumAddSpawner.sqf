@@ -1,4 +1,6 @@
 
+#include "..\variables.h"
+
 _mode = param [0,"",[""]];
 _input = param [1,[],[[]]];
 
@@ -16,10 +18,10 @@ switch _mode do {
 		_fieldRadius = _logic getVariable "Radius";
 		_fakeType = "";
 		switch ( _color ) do {
-			case 1: { _fakeType = "TG_TiberiumBlue_1"; };
-			case 2: { _fakeType = "TG_TiberiumPurple_1"; };
-			case 3: { _fakeType = "TG_TiberiumRed_1"; };
-			default { _fakeType = "TG_TiberiumGreen_1"; };
+			case 1: { _fakeType = TIBERIUM_BLUE select count TIBERIUM_BLUE - 1; };
+			case 2: { _fakeType = TIBERIUM_PURPLE select count TIBERIUM_PURPLE - 1; };
+			case 3: { _fakeType = TIBERIUM_RED select count TIBERIUM_RED - 1; };
+			default { _fakeType = TIBERIUM_GREEN select count TIBERIUM_GREEN - 1; };
 		};
 		_synced = synchronizedObjects _logic;
 		{
@@ -27,6 +29,14 @@ switch _mode do {
 		} 
 		forEach _synced;
 		_logic synchronizeObjectsRemove _synced;
+		
+		//-- Show error if no Tiberim Gardener Module is present in the mission		
+		sleep 1;
+		private _moduleGardener = missionNameSpace getVariable MISSION_MODULE_GARDENER;
+		if (isNil{ _moduleGardener }) then {
+			["No Tiberium Gardener module found"] call BIS_fnc_error;
+		};
+		
 	};
 	
 	default {};

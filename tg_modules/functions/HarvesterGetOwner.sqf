@@ -3,4 +3,4 @@
 
 params ["_harvester"];
 
-_harvester getVariable [UNITS_HARVESTER_OWNER, UNITS_HARVESTER_DEFAULT_OWNER]
+_harvester getVariable [UNITS_HARVESTER_OWNER, objNull]

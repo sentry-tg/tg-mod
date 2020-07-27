@@ -27,7 +27,7 @@
 	prevents other modules of this type to operate, 
 	effectively enforcing a singleton pattern 
 */
-#define MISSION_MODULE_GARDENER "TG_ModuleTiberium"
+#define MISSION_MODULE_GARDENER "TG_ModuleTiberiumGardener"
 #define MISSION_MODULE_TIBERIUM_CRYSTAL_VALUE "TG_ModuleTiberiumCrystalValue"
 #define MISSION_MODULE_TIBERIUM_DAMAGE "TG_ModuleTiberiumDamage"
 
@@ -50,13 +50,16 @@
 #define UNITS_HARVESTER_ACTIVITY_IDLE 0
 #define UNITS_HARVESTER_ACTIVITY_STANDBY 1
 #define UNITS_HARVESTER_OWNER "Owner"
-#define UNITS_HARVESTER_DEFAULT_OWNER objNull
 #define UNITS_HARVESTER_CAPACITY "Capacity"
 #define UNITS_HARVESTER_MAXCAPACITY "MaxCapacity"
 #define UNITS_HARVESTER_PREVIOUS_POSITION "PreviousPosition"
 #define UNITS_HARVESTER_PREVIOUS_POSITION_SEARCH_RADIUS 100
-#define UNITS_HARVESTER_MAX_DIST_TO_CRYSTAL 6
-#define UNITS_HARVESTER_MAX_DIST_TO_REFINERY 10
-#define UNITS_HARVESTER_REFINERY_CLASSES ["Land_dp_mainFactory_F"]
+#define UNITS_HARVESTER_REFINERY_ROOT_CLASS "Land_dp_mainFactory_F"
 #define UNITS_HARVESTER_UNLOAD_TIME 12
+
+	// +++++++++++++++++++++++++++++++++++ \\
+	// 				 Curator			   \\
+	// +++++++++++++++++++++++++++++++++++ \\
+
+#define CURATOR_BUILDING_DEFS "buildingDefs"
 

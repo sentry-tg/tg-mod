@@ -7,7 +7,8 @@ if !(isNil{ missionNameSpace getVariable _globalVariableName }) exitWith {
 };
 missionNameSpace setVariable [_globalVariableName, _logic, true];
 
-["_logic", "_globalVariableName"] spawn {
+[_logic, _globalVariableName] spawn {
+	params ["_logic", "_globalVariableName"];
 	while { !isNull _logic } do { sleep 1; };
 	missionNameSpace setVariable [_globalVariableName, nil, true];
 };

@@ -25,8 +25,8 @@ while { !isNull _logic } do
 		
 		if !( isNull _father ) then //	Checking that the crystal has not been harvested
 		{
-			_FieldRadius = _father getVariable SPAWNER_TIBERIUM_FIELDRADIUS;
-			_FieldCenter = _father getVariable SPAWNER_TIBERIUM_FIELDCENTER;
+			_FieldRadius = _father getVariable [SPAWNER_TIBERIUM_FIELDRADIUS, 0];
+			_FieldCenter = _father getVariable [SPAWNER_TIBERIUM_FIELDCENTER, [0,0,0]];
 			
 			_proposedCoordinates = [];
 			
@@ -45,7 +45,7 @@ while { !isNull _logic } do
 				// Preliminary check that should filter out most of the coordinates
 				if ( _acceptedCoords findIf { (_x # 1) distance _candidate < _crystalRadius } < 0 ) then {
 					// Final check
-					if ( count( _candidate nearEntities [TIBERIUM_ROOT_CLASS, _crystalRadius] ) <= 0 ) then { 
+					if ( count( _candidate nearObjects [TIBERIUM_ROOT_CLASS, _crystalRadius] ) <= 0 ) then { 
 						_acceptedCoords pushBack [_father, _candidate, _candidate getDir _father];
 					};
 				};

@@ -52,7 +52,7 @@ class CfgFunctions
 			class HarvesterCanUnload { file = "\tg_modules\functions\HarvesterCanUnload.sqf"; };
 			class HarvesterClearActivity { file = "\tg_modules\functions\HarvesterClearActivity.sqf"; };
 			class HarvesterFindRefinery { file = "\tg_modules\functions\HarvesterFindRefinery.sqf"; };
-			class HarvesterFindResources { file = "\tg_modules\functions\HarvesterFindResources.sqf"; };
+			class HarvesterFindResource { file = "\tg_modules\functions\HarvesterFindResource.sqf"; };
 			class HarvesterGetCapacity { file = "\tg_modules\functions\HarvesterGetCapacity.sqf"; };
 			class HarvesterGetOwner { file = "\tg_modules\functions\HarvesterGetOwner.sqf"; };
 			class HarvesterGetPreviousPosition { file = "\tg_modules\functions\HarvesterGetPreviousPosition.sqf"; };
@@ -65,6 +65,7 @@ class CfgFunctions
 			class HarvesterSetOwner { file = "\tg_modules\functions\HarvesterSetOwner.sqf"; };
 			class HarvesterSetPreviousPosition { file = "\tg_modules\functions\HarvesterSetPreviousPosition.sqf"; };
 			class HarvesterUnloadOneTick { file = "\tg_modules\functions\HarvesterUnloadOneTick.sqf"; };
+			class HarvesterUnitReady { file = "\tg_modules\functions\HarvesterUnitReady.sqf"; };
 		};
 		class Tiberium {
 			class TiberiumAddSpawner { file = "\tg_modules\functions\TiberiumAddSpawner.sqf"; };
@@ -75,7 +76,8 @@ class CfgFunctions
 		};
 		class CommonFunctions
 		{
-			class AnimateSequence { file = "\tg_modules\functions\AnimateSequence.sqf"; };
+			class MakeSingletone { file = "\tg_modules\functions\MakeSingletone.sqf"; };
+			class AnimationSequence { file = "\tg_modules\functions\AnimationSequence.sqf"; };
 			class LerpVector { file = "\tg_modules\functions\LerpVector.sqf"; };
 			class GetCorners { file = "\tg_modules\functions\GetCorners.sqf"; };
 			class GetCornersDiscrete { file = "\tg_modules\functions\GetCornersDiscrete.sqf"; };

@@ -6,12 +6,12 @@ params ["_harvester"];
 private _curator = _harvester call TG_fnc_HarvesterGetOwner;
 if (isNull _curator) exitWith {
 	//-- Harvester has no owner set
-	["__FILE__: The harvester has no owner set"] call BIS_fnc_error;
+	["The harvester has no owner set"] call BIS_fnc_error;
 	_harvester setDamage 1;
 	objNull
 };
 
-private _refineries = curatorEditableObjects _curator select { typeOf _x in UNITS_HARVESTER_REFINERY_CLASSES && alive _x });
+private _refineries = curatorEditableObjects _curator select { typeOf _x isKindOf UNITS_HARVESTER_REFINERY_ROOT_CLASS && alive _x };
 
 if (_refineries isEqualTo []) exitWith { objNull }; //-- No refineries
 
