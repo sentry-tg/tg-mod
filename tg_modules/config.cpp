@@ -33,6 +33,7 @@ class CfgFunctions
 			class ModuleAICommander { file = "\tg_modules\Modules\ModuleAICommander.sqf"; };
 			class ModuleJukebox { file = "\tg_modules\Modules\ModuleJukebox.sqf"; };
 			class ModuleTiberiumCrystalValue { file = "\tg_modules\Modules\ModuleTiberiumCrystalValue.sqf"; };
+			class ModuleCuratorRTS { file = "\tg_modules\Modules\ModuleCuratorRTS.sqf"; };
 		};
 		/*
 		class AI {
@@ -51,11 +52,13 @@ class CfgFunctions
 			class HarvesterCanHarvest { file = "\tg_modules\functions\HarvesterCanHarvest.sqf"; };
 			class HarvesterCanUnload { file = "\tg_modules\functions\HarvesterCanUnload.sqf"; };
 			class HarvesterClearActivity { file = "\tg_modules\functions\HarvesterClearActivity.sqf"; };
+			class HarvesterDockToRefinery { file = "\tg_modules\functions\HarvesterDockToRefinery.sqf"; };
 			class HarvesterFindRefinery { file = "\tg_modules\functions\HarvesterFindRefinery.sqf"; };
 			class HarvesterFindResource { file = "\tg_modules\functions\HarvesterFindResource.sqf"; };
 			class HarvesterGetCapacity { file = "\tg_modules\functions\HarvesterGetCapacity.sqf"; };
 			class HarvesterGetOwner { file = "\tg_modules\functions\HarvesterGetOwner.sqf"; };
 			class HarvesterGetPreviousPosition { file = "\tg_modules\functions\HarvesterGetPreviousPosition.sqf"; };
+			class HarvesterGetRefineryRPP { file = "\tg_modules\functions\HarvesterGetRefineryRPP.sqf"; };
 			class HarvesterHarvestOneTick { file = "\tg_modules\functions\HarvesterHarvestOneTick.sqf"; };
 			class HarvesterHasActivity { file = "\tg_modules\functions\HarvesterHasActivity.sqf"; };
 			class HarvesterIsEmpty { file = "\tg_modules\functions\HarvesterIsEmpty.sqf"; };
@@ -65,7 +68,8 @@ class CfgFunctions
 			class HarvesterSetOwner { file = "\tg_modules\functions\HarvesterSetOwner.sqf"; };
 			class HarvesterSetPreviousPosition { file = "\tg_modules\functions\HarvesterSetPreviousPosition.sqf"; };
 			class HarvesterUnloadOneTick { file = "\tg_modules\functions\HarvesterUnloadOneTick.sqf"; };
-			class HarvesterUnitReady { file = "\tg_modules\functions\HarvesterUnitReady.sqf"; };
+			class HarvesterMoveTo { file = "\tg_modules\functions\HarvesterMoveTo.sqf"; };
+			class HarvesterMoveToCompleted { file = "\tg_modules\functions\HarvesterMoveToCompleted.sqf"; };
 		};
 		class Tiberium {
 			class TiberiumAddSpawner { file = "\tg_modules\functions\TiberiumAddSpawner.sqf"; };
@@ -74,17 +78,40 @@ class CfgFunctions
 			class TiberiumGetChildrenPos { file = "\tg_modules\functions\TiberiumGetChildrenPos.sqf"; };
 			class TiberiumSpawnCrystal { file = "\tg_modules\functions\TiberiumSpawnCrystal.sqf"; };
 		};
+		class Curator {
+			class BuildingDefs { file = "\tg_modules\functions\BuildingDefs.sqf"; };
+			class CuratorAddMoney { file = "\tg_modules\functions\CuratorAddMoney.sqf"; };
+			class CuratorSetMoney { file = "\tg_modules\functions\CuratorSetMoney.sqf"; };
+			class CuratorGetMoney { file = "\tg_modules\functions\CuratorGetMoney.sqf"; };
+			class CuratorGetMaxMoney { file = "\tg_modules\functions\CuratorGetMaxMoney.sqf"; };
+			class CuratorSetBuildingDefs { file = "\tg_modules\functions\CuratorSetBuildingDefs.sqf"; };
+			class CuratorGetBuildingDefs { file = "\tg_modules\functions\CuratorGetBuildingDefs.sqf"; };
+			class CuratorUpdateBuildingArea { file = "\tg_modules\functions\CuratorUpdateBuildingArea.sqf"; };
+			class CuratorGetCanBeBuiltClasses { file = "\tg_modules\functions\CuratorGetCanBeBuiltClasses.sqf"; };
+			class CuratorUpdateBuildingList { file = "\tg_modules\functions\CuratorUpdateBuildingList.sqf"; };
+			class CuratorObjectPlaced { file = "\tg_modules\functions\CuratorObjectPlaced.sqf"; };
+			class CuratorObjectDeleted { file = "\tg_modules\functions\CuratorObjectDeleted.sqf"; };
+			class CuratorObjectSelectionChanged { file = "\tg_modules\functions\CuratorObjectSelectionChanged.sqf"; };
+			class CuratorConvertMoneyToPoints { file = "\tg_modules\functions\CuratorConvertMoneyToPoints.sqf"; };
+			class CuratorUpdateCuratorPoints { file = "\tg_modules\functions\CuratorUpdateCuratorPoints.sqf"; };
+			class CuratorReopenDisplay { file = "\tg_modules\functions\CuratorReopenDisplay.sqf"; };
+			
+		};
 		class CommonFunctions
 		{
+			class AnimateConstruction { file = "\tg_modules\functions\AnimateConstruction.sqf"; };
 			class MakeSingletone { file = "\tg_modules\functions\MakeSingletone.sqf"; };
 			class AnimationSequence { file = "\tg_modules\functions\AnimationSequence.sqf"; };
 			class LerpVector { file = "\tg_modules\functions\LerpVector.sqf"; };
-			class GetCorners { file = "\tg_modules\functions\GetCorners.sqf"; };
-			class GetCornersDiscrete { file = "\tg_modules\functions\GetCornersDiscrete.sqf"; };
-			class SinkOrEmerge { file = "\tg_modules\functions\SinkOrEmerge.sqf"; };
+			class GetBoundingBoxDiscrete { file = "\tg_modules\functions\GetBoundingBoxDiscrete.sqf"; };
+			class ConstructionEmerge { file = "\tg_modules\functions\ConstructionEmerge.sqf"; };
 			class CheckIntersection { file = "\tg_modules\functions\CheckIntersection.sqf"; };
 			class IsFlatEmpty { file = "\tg_modules\functions\IsFlatEmpty.sqf"; };
 			class DistanceBetweenArrays { file = "\tg_modules\functions\DistanceBetweenArrays.sqf"; };
+			class SoundQueue_Add { file = "\tg_modules\functions\SoundQueue_Add.sqf"; };
+			class SoundQueue_Loop { file = "\tg_modules\functions\SoundQueue_Loop.sqf"; };
+			class GetCorners { file = "\tg_modules\functions\GetCorners.sqf"; };
+			class GetSyncedSide { file = "\tg_modules\functions\GetSyncedSide.sqf"; };
 		};
 		class Jukebox {
 			class JukeboxPlayMusic { file = "\tg_modules\functions\JukeboxPlayMusic.sqf"; };
@@ -327,6 +354,73 @@ class CfgVehicles {
 				tooltip = "Array of classes of units that get healed instead of damaged";
 				defaultValue = "[]";
 			};
+		};
+	};
+	
+	class TG_ModuleCuratorRTS : TG_Module {
+		_generalMacro = "TG_ModuleCuratorRTS";
+		scope = 2;
+		displayName = "Curator RTS";
+		function = "TG_fnc_ModuleCuratorRTS";
+		isDisposable = 1; // 1 if modules is to be disabled once it's activated (i.e., repeated trigger activation won't work)
+		isGlobal = 2; // 0 for server only execution, 1 for global execution, 2 for persistent global execution
+		
+		simulation = "curator";
+		vehicleClass = "Modules";
+		functionPriority = 1;
+		icon = "\a3\Modules_F_Curator\Data\iconCurator_ca.paa";
+		portrait = "\a3\Modules_F_Curator\Data\portraitCurator_ca.paa";
+		
+		class Attributes : AttributesBase {
+			class Owner : Edit { //["Default"]
+				displayName = "Owner";
+				tooltip = "Unit with access to the Zeus interface. Can be an objectâ€™s variable name, player UID, or you can use #adminLogged or #adminVoted to give access to the server admin.";
+				property = "ModuleCurator_F_Owner";
+			};
+			class Name : Edit { //["Default"]
+				displayName = "Name";
+				tooltip = "Custom name displayed for other players";
+				property = "ModuleCurator_F_Name";
+			};
+			class Forced : CheckboxNumber { //["Default"]
+				displayName = "Forced interface";
+				tooltip = "Open the interface by default and prevent the player from closing it.";
+				property = "ModuleCurator_F_Forced";
+			};
+			class ModuleDescription : ModuleDescription {};
+		};
+		class Arguments {
+			class Owner {
+				displayName = "Owner";
+				description = "Unit with access to the Zeus interface. Can be an objectâ€™s variable name, player UID, or you can use #adminLogged or #adminVoted to give access to the server admin.";
+				defaultValue = "";
+			};
+			class Name {
+				displayName = "Name";
+				description = "Custom name displayed for other players";
+				defaultValue = "";
+			};
+			class Forced {
+				displayName = "Forced interface";
+				description = "Open the interface by default and prevent the player from closing it.";
+				typeName = "NUMBER";
+				class values {
+					class Enabled {
+						name = "Enabled";
+						value = 1;
+					};
+					class Disabled {
+						name = "Disabled";
+						value = 0;
+						default = 1;
+					};
+				};
+			};
+		};
+		
+		class ModuleDescription : ModuleDescription {
+			description = "";
+			sync[] = {};
 		};
 	};
 	

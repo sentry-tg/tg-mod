@@ -1,11 +1,12 @@
 
 #include "..\variables.h"
 
-params ["_harvester"];
+params ["_harvester", "_refinery"];
 
 (_harvester call TG_fnc_HarvesterGetCapacity) params ["_currentLoad", "_maximumLoad"];
-if (_currentLoad <= 0) exitWith { false };
+if (_currentLoad <= 0 || !(alive _refinery)) exitWith { false };
 
-private _refineries = _harvester nearObjects [UNITS_HARVESTER_REFINERY_ROOT_CLASS, UNITS_HARVESTER_MAX_DIST_TO_REFINERY];
-count _refineries > 0 
+([_harvester, _refinery] call TG_fnc_HarvesterGetRefineryRPP) params ["_RPP", "_direction"];
+
+_RPP distance _harvester < UNITS_HARVESTER_MAX_DIST_TO_REFINERY
 

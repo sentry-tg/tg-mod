@@ -55,11 +55,53 @@
 #define UNITS_HARVESTER_PREVIOUS_POSITION "PreviousPosition"
 #define UNITS_HARVESTER_PREVIOUS_POSITION_SEARCH_RADIUS 100
 #define UNITS_HARVESTER_REFINERY_ROOT_CLASS "Land_dp_mainFactory_F"
+#define UNITS_HARVESTER_MAX_DIST_TO_CRYSTAL 10
+#define UNITS_HARVESTER_MAX_DIST_TO_REFINERY 10
 #define UNITS_HARVESTER_UNLOAD_TIME 12
+#define MOVE_TO_COMPLETED "reached_the_area"
 
 	// +++++++++++++++++++++++++++++++++++ \\
 	// 				 Curator			   \\
 	// +++++++++++++++++++++++++++++++++++ \\
 
 #define CURATOR_BUILDING_DEFS "buildingDefs"
+#define CURATOR_SIDE "curatorSi"
+#define CURATOR_MONEY "curatorMoney"
+#define CURATOR_GUI_HANDLER "curatorGUIHandler"
+#define CURATOR_CAN_BE_BUILT_CLASSES_PREV "canBeBuiltClassesPrev"
+#define CURATOR_CLASSES_BUILT_SO_FAR "canBeBuiltClassesPrev"
+
+//-- Used by addCuratorAddons and activateAddons 
+#define CURATOR_ADDONS []
+
+/* Money given to player after building conyard for first time */
+#define INITIAL_MONEY 3500
+#define CONYARD_CONFIG_NAMES ["GDI_ConstructionYard", "NOD_ConstructionYard"]
+#define HARVESTER_CLASSES ["gdi_tibharvester", "nod_tibharvester"]
+
+//-- System constants
+#define SELECT_CONFIG_NAME 0
+#define SELECT_NAME 1
+#define SELECT_BUILDING_COST 2
+#define SELECT_BUILD_TIME 3
+#define SELECT_READY_PRODUCT_POS 5
+#define SELECT_BUILDING_TYPE 6
+#define SELECT_DIRECTION 7
+#define SELECT_GLOBAL_SCRIPTS 8
+#define SELECT_SERVER_SCRIPTS 9
+#define SELECT_BUILDING_NEEDS 13
+#define SELECT_BUILDING_STORAGE 15
+#define ZEUS_DISPLAY_IDD 312
+
+//-- What is used as a fence around construction sites
+#define FENCE_CLASS "Land_New_WiredFence_5m_F"
+
+//-- Affects the size of the building name plate
+#define BUILDING_NAME_HINT_WIDTH 0.3
+#define BUILDING_NAME_HINT_HEIGHT 0.05
+#define BUILDING_NAME_HINT_FONT_SIZE 0.7
+#define MONEY_FONT_SIZE 1.3
+#define MONEY_HEIGHT 0.1 //07
+#define MONEY_WIDTH 0.4
+
 

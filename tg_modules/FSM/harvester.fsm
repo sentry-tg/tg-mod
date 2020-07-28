@@ -1,0 +1,643 @@
+/*%FSM<COMPILE "D:\SteamLibrary\steamapps\common\Arma 3 Tools\FSMEditor\scriptedFSM.cfg, harvester">*/
+/*%FSM<HEAD>*/
+/*
+item0[] = {"START",0,250,-39.460632,-155.320694,50.539368,-105.320686,0.000000,"START"};
+item1[] = {"_",8,218,105.568130,-143.099243,133.914749,-116.812073,0.000000,""};
+item2[] = {"Do_nothing",2,250,188.163925,-154.616913,278.163910,-104.616913,0.000000,"Do nothing"};
+item3[] = {"Has_Activity_",4,218,265.905060,-233.283707,355.905060,-183.283966,1.000000,"Has Activity?"};
+item4[] = {"Wait_some_time",2,250,186.484039,-281.276245,276.484070,-231.276367,0.000000,"Wait some" \n "time"};
+item5[] = {"Time_pased_",4,218,107.308197,-231.097229,197.308197,-181.097229,0.000000,"Time pased?"};
+item6[] = {"_",8,218,324.439636,-145.004730,360.613953,-114.577698,0.000000,""};
+item7[] = {"Take_control_of",2,250,421.488831,-155.606705,511.488983,-105.606720,0.000000,"Take control" \n "of the unit"};
+item8[] = {"Is_full_",4,218,543.004272,-219.218826,633.004333,-169.218842,1.000000,"Is full?"};
+item9[] = {"Find__refinery",2,250,543.878113,-284.237335,633.878113,-234.237335,0.000000,"Find " \n "refinery"};
+item10[] = {"Found__refinery",4,218,710.757507,-284.685364,800.757507,-234.685364,1.000000,"Found " \n "refinery?"};
+item11[] = {"Going__to_refine",2,250,711.380737,-206.236603,801.380737,-156.236557,0.000000,"Going " \n "to refinery"};
+item12[] = {"No_refinery",8,218,379.896362,-225.743118,469.896271,-175.743179,0.000000,"No refinery"};
+item13[] = {"_",8,218,569.209106,-90.188843,605.383484,-61.392876,0.000000,""};
+item14[] = {"Find__resources",2,250,542.188782,-33.971008,632.188782,16.028992,0.000000,"Find " \n "resources"};
+item15[] = {"Resources_not_fo",8,218,375.683167,-88.445206,465.683167,-38.445206,0.000000,"Resources" \n "not found"};
+item16[] = {"Found_resources",4,218,712.560181,-34.718826,802.560181,15.281174,1.000000,"Found" \n "resources?"};
+item17[] = {"Going_to_resourc",2,250,712.558350,-105.217934,802.558350,-55.217941,0.000000,"Going to" \n "resource"};
+item18[] = {"Has_Activity_",4,218,625.156128,-159.314743,715.156128,-109.314774,10.000000,"Has Activity?"};
+item19[] = {"Destroyed_",4,218,796.613586,-156.111023,886.613586,-106.111023,100.000000,"Destroyed?"};
+item20[] = {"END",1,250,934.597229,-155.148468,1024.596191,-105.148483,0.000000,"END"};
+item21[] = {"",7,210,655.740784,-335.581665,663.740784,-327.581635,0.000000,""};
+item22[] = {"Destination_reached",4,218,847.469055,-206.152420,937.469055,-156.152451,1.000000,"Destination" \n "reached?"};
+item23[] = {"Destination_reached",4,218,849.801086,-105.032799,939.801331,-55.032806,1.000000,"Destination" \n "reached?"};
+item24[] = {"Harvesting_loop",2,250,847.042358,-40.820797,937.042358,9.179199,0.000000,"Harvesting" \n "loop"};
+item25[] = {"Unloading_loop",2,250,847.759521,-274.944885,937.759521,-224.944870,0.000000,"Unloading" \n "loop"};
+item26[] = {"",7,210,682.449463,-335.742645,690.449463,-327.742645,0.000000,""};
+item27[] = {"",7,210,821.226624,-201.279037,829.226624,-193.279037,0.000000,""};
+item28[] = {"",7,210,823.632629,-70.727112,831.632629,-62.727112,0.000000,""};
+item29[] = {"",7,210,677.387756,56.225342,685.387756,64.225342,0.000000,""};
+item30[] = {"Possible_to_unload",4,4314,848.201782,-379.898621,938.201782,-329.898621,1.000000,"Possible to" \n "unload?"};
+item31[] = {"Unload_1_tick",2,250,970.204956,-379.606079,1060.205078,-329.606049,0.000000,"Unload 1 tick"};
+item32[] = {"scriptDone_",4,218,914.554993,-327.195953,1004.554993,-277.195953,0.000000,"scriptDone?"};
+item33[] = {"No_more__refinery",8,218,543.340759,-432.747131,633.340759,-382.747131,0.000000,"No more " \n "refinery " \n "nearby"};
+item34[] = {"Is_Empty_",4,218,1010.672119,-274.480164,1100.672119,-224.480164,2.000000,"Is Empty?"};
+item35[] = {"",7,210,779.952759,-409.424805,787.952759,-401.424805,0.000000,""};
+item36[] = {"",7,210,1233.124512,-144.808533,1241.124512,-136.808533,0.000000,""};
+item37[] = {"",7,210,227.292175,182.285400,235.292160,190.285400,0.000000,""};
+item38[] = {"Can_harvest_",4,218,847.137512,59.208008,937.137512,109.208008,1.000000,"Can harvest?"};
+item39[] = {"Harvest_1_tick",2,250,982.151184,59.645874,1072.151367,109.645866,0.000000,"Harvest 1 tick"};
+item40[] = {"scriptDone_",4,218,911.841675,4.136963,1000.625671,57.524017,0.000000,"scriptDone?"};
+item41[] = {"Is_full_",4,218,999.016357,-42.736115,1089.016357,7.263885,2.000000,"Is full?"};
+item42[] = {"Can_t_harvest",8,218,542.303772,99.256195,632.303772,149.256195,0.000000,"Can't harvest"};
+item43[] = {"",7,210,756.061707,121.441254,764.061707,129.441254,0.000000,""};
+item44[] = {"",7,210,1237.589844,184.682404,1245.589966,192.682404,0.000000,""};
+item45[] = {"Dock",2,250,952.065125,-198.577225,999.179321,-174.308670,0.000000,"Dock"};
+item46[] = {"scriptDone_",4,218,926.659180,-226.187927,1022.949219,-204.778397,0.000000,"scriptDone?"};
+link0[] = {0,1};
+link1[] = {1,2};
+link2[] = {2,3};
+link3[] = {2,6};
+link4[] = {3,4};
+link5[] = {4,5};
+link6[] = {5,2};
+link7[] = {6,7};
+link8[] = {7,8};
+link9[] = {7,13};
+link10[] = {8,9};
+link11[] = {9,10};
+link12[] = {9,12};
+link13[] = {10,11};
+link14[] = {11,18};
+link15[] = {11,19};
+link16[] = {11,22};
+link17[] = {12,2};
+link18[] = {13,14};
+link19[] = {14,15};
+link20[] = {14,16};
+link21[] = {15,2};
+link22[] = {16,17};
+link23[] = {17,18};
+link24[] = {17,19};
+link25[] = {17,23};
+link26[] = {18,21};
+link27[] = {19,20};
+link28[] = {21,4};
+link29[] = {22,45};
+link30[] = {23,24};
+link31[] = {24,28};
+link32[] = {24,29};
+link33[] = {24,38};
+link34[] = {24,41};
+link35[] = {24,43};
+link36[] = {25,26};
+link37[] = {25,27};
+link38[] = {25,30};
+link39[] = {25,34};
+link40[] = {25,35};
+link41[] = {26,18};
+link42[] = {27,19};
+link43[] = {28,19};
+link44[] = {29,18};
+link45[] = {30,31};
+link46[] = {31,32};
+link47[] = {32,25};
+link48[] = {33,9};
+link49[] = {34,36};
+link50[] = {35,33};
+link51[] = {36,44};
+link52[] = {37,2};
+link53[] = {38,39};
+link54[] = {39,40};
+link55[] = {40,24};
+link56[] = {41,36};
+link57[] = {42,14};
+link58[] = {43,42};
+link59[] = {44,37};
+link60[] = {45,18};
+link61[] = {45,19};
+link62[] = {45,46};
+link63[] = {46,25};
+globals[] = {0.000000,0,0,0,0,640,480,1,53,6316128,1,634.537109,1356.143677,2.635559,-445.086182,1154,716,1};
+window[] = {0,-1,-1,-1,-1,1049,145,1754,145,1,1174};
+*//*%FSM</HEAD>*/
+class FSM
+{
+        fsmName = "harvester";
+        class States
+        {
+                /*%FSM<STATE "START">*/
+                class START
+                {
+                        name = "START";
+                        itemno = 0;
+                        init = /*%FSM<STATEINIT""">*/"params [""_harvester""];" \n
+                         "" \n
+                         ""/*%FSM</STATEINIT""">*/;
+                        precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+                        class Links
+                        {
+                                /*%FSM<LINK "_">*/
+                                class _
+                                {
+                                        itemno = 1;
+                                        priority = 0.000000;
+                                        to="Do_nothing";
+                                        precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                                        condition=/*%FSM<CONDITION""">*/""/*%FSM</CONDITION""">*/;
+                                        action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                                };
+                                /*%FSM</LINK>*/
+                        };
+                };
+                /*%FSM</STATE>*/
+                /*%FSM<STATE "Do_nothing">*/
+                class Do_nothing
+                {
+                        name = "Do_nothing";
+                        itemno = 2;
+                        init = /*%FSM<STATEINIT""">*/""/*%FSM</STATEINIT""">*/;
+                        precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+                        class Links
+                        {
+                                /*%FSM<LINK "Has_Activity_">*/
+                                class Has_Activity_
+                                {
+                                        itemno = 3;
+                                        priority = 1.000000;
+                                        to="Wait_some_time";
+                                        precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                                        condition=/*%FSM<CONDITION""">*/"_harvester call TG_fnc_HarvesterHasActivity"/*%FSM</CONDITION""">*/;
+                                        action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                                };
+                                /*%FSM</LINK>*/
+                                /*%FSM<LINK "_">*/
+                                class _
+                                {
+                                        itemno = 6;
+                                        priority = 0.000000;
+                                        to="Take_control_of";
+                                        precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                                        condition=/*%FSM<CONDITION""">*/""/*%FSM</CONDITION""">*/;
+                                        action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                                };
+                                /*%FSM</LINK>*/
+                        };
+                };
+                /*%FSM</STATE>*/
+                /*%FSM<STATE "Wait_some_time">*/
+                class Wait_some_time
+                {
+                        name = "Wait_some_time";
+                        itemno = 4;
+                        init = /*%FSM<STATEINIT""">*/"_time = time;"/*%FSM</STATEINIT""">*/;
+                        precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+                        class Links
+                        {
+                                /*%FSM<LINK "Time_pased_">*/
+                                class Time_pased_
+                                {
+                                        itemno = 5;
+                                        priority = 0.000000;
+                                        to="Do_nothing";
+                                        precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                                        condition=/*%FSM<CONDITION""">*/"time - _time > 2"/*%FSM</CONDITION""">*/;
+                                        action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                                };
+                                /*%FSM</LINK>*/
+                        };
+                };
+                /*%FSM</STATE>*/
+                /*%FSM<STATE "Take_control_of">*/
+                class Take_control_of
+                {
+                        name = "Take_control_of";
+                        itemno = 7;
+                        init = /*%FSM<STATEINIT""">*/""/*%FSM</STATEINIT""">*/;
+                        precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+                        class Links
+                        {
+                                /*%FSM<LINK "Is_full_">*/
+                                class Is_full_
+                                {
+                                        itemno = 8;
+                                        priority = 1.000000;
+                                        to="Find__refinery";
+                                        precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                                        condition=/*%FSM<CONDITION""">*/"_harvester call TG_fnc_HarvesterIsFull"/*%FSM</CONDITION""">*/;
+                                        action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                                };
+                                /*%FSM</LINK>*/
+                                /*%FSM<LINK "_">*/
+                                class _
+                                {
+                                        itemno = 13;
+                                        priority = 0.000000;
+                                        to="Find__resources";
+                                        precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                                        condition=/*%FSM<CONDITION""">*/""/*%FSM</CONDITION""">*/;
+                                        action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                                };
+                                /*%FSM</LINK>*/
+                        };
+                };
+                /*%FSM</STATE>*/
+                /*%FSM<STATE "Find__refinery">*/
+                class Find__refinery
+                {
+                        name = "Find__refinery";
+                        itemno = 9;
+                        init = /*%FSM<STATEINIT""">*/"_refinery = _harvester call TG_fnc_HarvesterFindRefinery;" \n
+                         "_refineryPos = getPos _refinery;"/*%FSM</STATEINIT""">*/;
+                        precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+                        class Links
+                        {
+                                /*%FSM<LINK "Found__refinery">*/
+                                class Found__refinery
+                                {
+                                        itemno = 10;
+                                        priority = 1.000000;
+                                        to="Going__to_refine";
+                                        precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                                        condition=/*%FSM<CONDITION""">*/"!(_refineryPos isEqualTo [0,0,0])"/*%FSM</CONDITION""">*/;
+                                        action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                                };
+                                /*%FSM</LINK>*/
+                                /*%FSM<LINK "No_refinery">*/
+                                class No_refinery
+                                {
+                                        itemno = 12;
+                                        priority = 0.000000;
+                                        to="Do_nothing";
+                                        precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                                        condition=/*%FSM<CONDITION""">*/""/*%FSM</CONDITION""">*/;
+                                        action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                                };
+                                /*%FSM</LINK>*/
+                        };
+                };
+                /*%FSM</STATE>*/
+                /*%FSM<STATE "Going__to_refine">*/
+                class Going__to_refine
+                {
+                        name = "Going__to_refine";
+                        itemno = 11;
+                        init = /*%FSM<STATEINIT""">*/"[_harvester, [_harvester, _refinery] call TG_fnc_HarvesterGetRefineryRPP select 0] call TG_fnc_HarvesterMoveTo;"/*%FSM</STATEINIT""">*/;
+                        precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+                        class Links
+                        {
+                                /*%FSM<LINK "Destroyed_">*/
+                                class Destroyed_
+                                {
+                                        itemno = 19;
+                                        priority = 100.000000;
+                                        to="END";
+                                        precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                                        condition=/*%FSM<CONDITION""">*/"!(canMove _harvester)"/*%FSM</CONDITION""">*/;
+                                        action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                                };
+                                /*%FSM</LINK>*/
+                                /*%FSM<LINK "Has_Activity_">*/
+                                class Has_Activity_
+                                {
+                                        itemno = 18;
+                                        priority = 10.000000;
+                                        to="Wait_some_time";
+                                        precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                                        condition=/*%FSM<CONDITION""">*/"_harvester call TG_fnc_HarvesterHasActivity"/*%FSM</CONDITION""">*/;
+                                        action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                                };
+                                /*%FSM</LINK>*/
+                                /*%FSM<LINK "Destination_reached">*/
+                                class Destination_reached
+                                {
+                                        itemno = 22;
+                                        priority = 1.000000;
+                                        to="Dock";
+                                        precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                                        condition=/*%FSM<CONDITION""">*/"[_harvester] call TG_fnc_HarvesterMoveToCompleted"/*%FSM</CONDITION""">*/;
+                                        action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                                };
+                                /*%FSM</LINK>*/
+                        };
+                };
+                /*%FSM</STATE>*/
+                /*%FSM<STATE "Find__resources">*/
+                class Find__resources
+                {
+                        name = "Find__resources";
+                        itemno = 14;
+                        init = /*%FSM<STATEINIT""">*/"_resource = _harvester call TG_fnc_HarvesterFindResource;" \n
+                         "_resourcePos = getPos _resource;"/*%FSM</STATEINIT""">*/;
+                        precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+                        class Links
+                        {
+                                /*%FSM<LINK "Found_resources">*/
+                                class Found_resources
+                                {
+                                        itemno = 16;
+                                        priority = 1.000000;
+                                        to="Going_to_resourc";
+                                        precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                                        condition=/*%FSM<CONDITION""">*/"!(_resourcePos isEqualTo [0,0,0])"/*%FSM</CONDITION""">*/;
+                                        action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                                };
+                                /*%FSM</LINK>*/
+                                /*%FSM<LINK "Resources_not_fo">*/
+                                class Resources_not_fo
+                                {
+                                        itemno = 15;
+                                        priority = 0.000000;
+                                        to="Do_nothing";
+                                        precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                                        condition=/*%FSM<CONDITION""">*/""/*%FSM</CONDITION""">*/;
+                                        action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                                };
+                                /*%FSM</LINK>*/
+                        };
+                };
+                /*%FSM</STATE>*/
+                /*%FSM<STATE "Going_to_resourc">*/
+                class Going_to_resourc
+                {
+                        name = "Going_to_resourc";
+                        itemno = 17;
+                        init = /*%FSM<STATEINIT""">*/"[_harvester, _resource] call TG_fnc_HarvesterMoveTo;"/*%FSM</STATEINIT""">*/;
+                        precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+                        class Links
+                        {
+                                /*%FSM<LINK "Destroyed_">*/
+                                class Destroyed_
+                                {
+                                        itemno = 19;
+                                        priority = 100.000000;
+                                        to="END";
+                                        precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                                        condition=/*%FSM<CONDITION""">*/"!(canMove _harvester)"/*%FSM</CONDITION""">*/;
+                                        action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                                };
+                                /*%FSM</LINK>*/
+                                /*%FSM<LINK "Has_Activity_">*/
+                                class Has_Activity_
+                                {
+                                        itemno = 18;
+                                        priority = 10.000000;
+                                        to="Wait_some_time";
+                                        precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                                        condition=/*%FSM<CONDITION""">*/"_harvester call TG_fnc_HarvesterHasActivity"/*%FSM</CONDITION""">*/;
+                                        action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                                };
+                                /*%FSM</LINK>*/
+                                /*%FSM<LINK "Destination_reached">*/
+                                class Destination_reached
+                                {
+                                        itemno = 23;
+                                        priority = 1.000000;
+                                        to="Harvesting_loop";
+                                        precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                                        condition=/*%FSM<CONDITION""">*/"[_harvester] call TG_fnc_HarvesterMoveToCompleted"/*%FSM</CONDITION""">*/;
+                                        action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                                };
+                                /*%FSM</LINK>*/
+                        };
+                };
+                /*%FSM</STATE>*/
+                /*%FSM<STATE "END">*/
+                class END
+                {
+                        name = "END";
+                        itemno = 20;
+                        init = /*%FSM<STATEINIT""">*/"_harvester setDamage 1;"/*%FSM</STATEINIT""">*/;
+                        precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+                        class Links
+                        {
+                        };
+                };
+                /*%FSM</STATE>*/
+                /*%FSM<STATE "Harvesting_loop">*/
+                class Harvesting_loop
+                {
+                        name = "Harvesting_loop";
+                        itemno = 24;
+                        init = /*%FSM<STATEINIT""">*/""/*%FSM</STATEINIT""">*/;
+                        precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+                        class Links
+                        {
+                                /*%FSM<LINK "Destroyed_">*/
+                                class Destroyed_
+                                {
+                                        itemno = 19;
+                                        priority = 100.000000;
+                                        to="END";
+                                        precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                                        condition=/*%FSM<CONDITION""">*/"!(canMove _harvester)"/*%FSM</CONDITION""">*/;
+                                        action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                                };
+                                /*%FSM</LINK>*/
+                                /*%FSM<LINK "Has_Activity_">*/
+                                class Has_Activity_
+                                {
+                                        itemno = 18;
+                                        priority = 10.000000;
+                                        to="Wait_some_time";
+                                        precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                                        condition=/*%FSM<CONDITION""">*/"_harvester call TG_fnc_HarvesterHasActivity"/*%FSM</CONDITION""">*/;
+                                        action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                                };
+                                /*%FSM</LINK>*/
+                                /*%FSM<LINK "Is_full_">*/
+                                class Is_full_
+                                {
+                                        itemno = 41;
+                                        priority = 2.000000;
+                                        to="Do_nothing";
+                                        precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                                        condition=/*%FSM<CONDITION""">*/"_harvester call TG_fnc_HarvesterIsFull"/*%FSM</CONDITION""">*/;
+                                        action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                                };
+                                /*%FSM</LINK>*/
+                                /*%FSM<LINK "Can_harvest_">*/
+                                class Can_harvest_
+                                {
+                                        itemno = 38;
+                                        priority = 1.000000;
+                                        to="Harvest_1_tick";
+                                        precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                                        condition=/*%FSM<CONDITION""">*/"_harvester call TG_fnc_HarvesterCanHarvest"/*%FSM</CONDITION""">*/;
+                                        action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                                };
+                                /*%FSM</LINK>*/
+                                /*%FSM<LINK "Can_t_harvest">*/
+                                class Can_t_harvest
+                                {
+                                        itemno = 42;
+                                        priority = 0.000000;
+                                        to="Find__resources";
+                                        precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                                        condition=/*%FSM<CONDITION""">*/""/*%FSM</CONDITION""">*/;
+                                        action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                                };
+                                /*%FSM</LINK>*/
+                        };
+                };
+                /*%FSM</STATE>*/
+                /*%FSM<STATE "Unloading_loop">*/
+                class Unloading_loop
+                {
+                        name = "Unloading_loop";
+                        itemno = 25;
+                        init = /*%FSM<STATEINIT""">*/""/*%FSM</STATEINIT""">*/;
+                        precondition = /*%FSM<STATEPRECONDITION""">*/"scriptDone _script"/*%FSM</STATEPRECONDITION""">*/;
+                        class Links
+                        {
+                                /*%FSM<LINK "Destroyed_">*/
+                                class Destroyed_
+                                {
+                                        itemno = 19;
+                                        priority = 100.000000;
+                                        to="END";
+                                        precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                                        condition=/*%FSM<CONDITION""">*/"!(canMove _harvester)"/*%FSM</CONDITION""">*/;
+                                        action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                                };
+                                /*%FSM</LINK>*/
+                                /*%FSM<LINK "Has_Activity_">*/
+                                class Has_Activity_
+                                {
+                                        itemno = 18;
+                                        priority = 10.000000;
+                                        to="Wait_some_time";
+                                        precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                                        condition=/*%FSM<CONDITION""">*/"_harvester call TG_fnc_HarvesterHasActivity"/*%FSM</CONDITION""">*/;
+                                        action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                                };
+                                /*%FSM</LINK>*/
+                                /*%FSM<LINK "Is_Empty_">*/
+                                class Is_Empty_
+                                {
+                                        itemno = 34;
+                                        priority = 2.000000;
+                                        to="Do_nothing";
+                                        precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                                        condition=/*%FSM<CONDITION""">*/"_harvester call TG_fnc_HarvesterIsEmpty"/*%FSM</CONDITION""">*/;
+                                        action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                                };
+                                /*%FSM</LINK>*/
+                                /*%FSM<LINK "Possible_to_unload">*/
+                                class Possible_to_unload
+                                {
+                                        itemno = 30;
+                                        priority = 1.000000;
+                                        to="Unload_1_tick";
+                                        precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                                        condition=/*%FSM<CONDITION""">*/"[_harvester, _refinery] call TG_fnc_HarvesterCanUnload"/*%FSM</CONDITION""">*/;
+                                        action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                                };
+                                /*%FSM</LINK>*/
+                                /*%FSM<LINK "No_more__refinery">*/
+                                class No_more__refinery
+                                {
+                                        itemno = 33;
+                                        priority = 0.000000;
+                                        to="Find__refinery";
+                                        precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                                        condition=/*%FSM<CONDITION""">*/""/*%FSM</CONDITION""">*/;
+                                        action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                                };
+                                /*%FSM</LINK>*/
+                        };
+                };
+                /*%FSM</STATE>*/
+                /*%FSM<STATE "Unload_1_tick">*/
+                class Unload_1_tick
+                {
+                        name = "Unload_1_tick";
+                        itemno = 31;
+                        init = /*%FSM<STATEINIT""">*/"_script = _harvester spawn TG_fnc_HarvesterUnloadOneTick"/*%FSM</STATEINIT""">*/;
+                        precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+                        class Links
+                        {
+                                /*%FSM<LINK "scriptDone_">*/
+                                class scriptDone_
+                                {
+                                        itemno = 32;
+                                        priority = 0.000000;
+                                        to="Unloading_loop";
+                                        precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                                        condition=/*%FSM<CONDITION""">*/"scriptDone _script"/*%FSM</CONDITION""">*/;
+                                        action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                                };
+                                /*%FSM</LINK>*/
+                        };
+                };
+                /*%FSM</STATE>*/
+                /*%FSM<STATE "Harvest_1_tick">*/
+                class Harvest_1_tick
+                {
+                        name = "Harvest_1_tick";
+                        itemno = 39;
+                        init = /*%FSM<STATEINIT""">*/"_script = _harvester spawn TG_fnc_HarvesterHarvestOneTick;"/*%FSM</STATEINIT""">*/;
+                        precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+                        class Links
+                        {
+                                /*%FSM<LINK "scriptDone_">*/
+                                class scriptDone_
+                                {
+                                        itemno = 40;
+                                        priority = 0.000000;
+                                        to="Harvesting_loop";
+                                        precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                                        condition=/*%FSM<CONDITION""">*/"scriptDone _script"/*%FSM</CONDITION""">*/;
+                                        action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                                };
+                                /*%FSM</LINK>*/
+                        };
+                };
+                /*%FSM</STATE>*/
+                /*%FSM<STATE "Dock">*/
+                class Dock
+                {
+                        name = "Dock";
+                        itemno = 45;
+                        init = /*%FSM<STATEINIT""">*/"_script = [_harvester, _refinery] spawn TG_fnc_HarvesterDockToRefinery;"/*%FSM</STATEINIT""">*/;
+                        precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+                        class Links
+                        {
+                                /*%FSM<LINK "Destroyed_">*/
+                                class Destroyed_
+                                {
+                                        itemno = 19;
+                                        priority = 100.000000;
+                                        to="END";
+                                        precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                                        condition=/*%FSM<CONDITION""">*/"!(canMove _harvester)"/*%FSM</CONDITION""">*/;
+                                        action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                                };
+                                /*%FSM</LINK>*/
+                                /*%FSM<LINK "Has_Activity_">*/
+                                class Has_Activity_
+                                {
+                                        itemno = 18;
+                                        priority = 10.000000;
+                                        to="Wait_some_time";
+                                        precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                                        condition=/*%FSM<CONDITION""">*/"_harvester call TG_fnc_HarvesterHasActivity"/*%FSM</CONDITION""">*/;
+                                        action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                                };
+                                /*%FSM</LINK>*/
+                                /*%FSM<LINK "scriptDone_">*/
+                                class scriptDone_
+                                {
+                                        itemno = 46;
+                                        priority = 0.000000;
+                                        to="Unloading_loop";
+                                        precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                                        condition=/*%FSM<CONDITION""">*/"scriptDone _script"/*%FSM</CONDITION""">*/;
+                                        action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                                };
+                                /*%FSM</LINK>*/
+                        };
+                };
+                /*%FSM</STATE>*/
+        };
+        initState="START";
+        finalStates[] =
+        {
+                "END",
+        };
+};
+/*%FSM</COMPILE>*/
