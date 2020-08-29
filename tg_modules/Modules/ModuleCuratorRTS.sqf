@@ -1,6 +1,19 @@
 
 #include "..\variables.h"
 
+#define DEF_RSC_TITLE_DISPLAY_EMPTY "RscTitleDisplayEmpty"
+#define DEF_CURATOR_OBJECT_REGISTERED_HANDLER "CuratorObjectRegisteredHandler"
+#define DEF_BIS_FNC_CURATORPINGED_DONE "bis_fnc_curatorPinged_done"
+#define DEF_FORCED "forced"
+#define DEF_BIRD "bird"
+#define DEF_ADMIN_VAR "adminVar"
+#define DEF_OWNER "owner"
+#define DEF_ADDONS "Addons"
+#define DEF_NAME "name"
+#define DEF_CHANNELS "channels"
+#define DEF_SHOW_NOTIFICATION "showNotification"
+#define DEF_BIRD_TYPE "birdType"
+
 _logic = _this select 0;
 _units = _this select 1;
 _activated = _this select 2;
@@ -14,7 +27,7 @@ if (_activated) then {
 	};
 
 	//--- Get curator owner
-	_ownerVar = _logic getvariable ["owner",""];
+	_ownerVar = _logic getvariable [DEF_OWNER,""];
 	_ownerUID = parsenumber _ownerVar;
 	if (cheatsenabled) then {
 		_ownerVarArray = toarray _ownerVar;
@@ -31,7 +44,7 @@ if (_activated) then {
 	_isAdmin = _ownerVar == "#adminLogged" || _ownerVar == "#adminVoted";
 
 	//--- Wipe out the variable so clients can't access it
-	_logic setvariable ["owner",nil];
+	_logic setvariable [DEF_OWNER,nil];
 
 	//--- Server
 	if (isserver) then {
@@ -42,12 +55,12 @@ if (_activated) then {
 			_letters = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"];
 			_adminVar = "admin_";
 			for "_i" from 0 to 9 do {_adminVar = _adminVar + (_letters call bis_fnc_selectrandom);};
-			_logic setvariable ["adminVar",_adminVar,true];
+			_logic setvariable [DEF_ADMIN_VAR,_adminVar,true];
 		};
 		
 		
 		//--- Get allowed addons
-		_addonsType = _logic getvariable ["Addons",3];
+		_addonsType = _logic getvariable [DEF_ADDONS,3];
 		_addons = [];
 		switch _addonsType do {
 
@@ -93,8 +106,8 @@ if (_activated) then {
 
 			if (_adminVar != "") then {_ownerVar = _adminVar;};
 
-			_forced = _logic getvariable ["forced",0] > 0;
-			_name = _logic getvariable ["name",""];
+			_forced = _logic getvariable [DEF_FORCED,0] > 0;
+			_name = _logic getvariable [DEF_NAME,""];
 			if (_name == "") then {_name = localize "STR_A3_curator";};
 
 			//--- Wait until mission starts
@@ -140,10 +153,10 @@ if (_activated) then {
 				//--- Add radio channels
 				{
 					_x radiochanneladd [_player];
-				} foreach (_logic getvariable ["channels",[]]);
+				} foreach (_logic getvariable [DEF_CHANNELS,[]]);
 
 				//--- Sent notification to all assigned players
-				if (_logic getvariable ["showNotification",true]) then {
+				if (_logic getvariable [DEF_SHOW_NOTIFICATION,true]) then {
 					{
 						if (isplayer _x) then {
 							[["CuratorAssign",[_name,name _player]],"bis_fnc_showNotification",_x] call bis_fnc_mp;
@@ -175,7 +188,7 @@ if (_activated) then {
 				//--- Add radio channels
 				{
 					_x radiochannelremove [_player];
-				} foreach (_logic getvariable ["channels",[]]);
+				} foreach (_logic getvariable [DEF_CHANNELS,[]]);
 
 				//--- Unassign
 				waituntil {unassigncurator _logic; isnull (getassignedcuratorunit _logic) || isnull _logic};
@@ -184,17 +197,17 @@ if (_activated) then {
 		};
 
 		//--- Create bird
-		_birdType = _logic getvariable ["birdType","eagle_f"];
+		_birdType = _logic getvariable [DEF_BIRD_TYPE,"eagle_f"];
 		if (_birdType != "") then {
 			_bird = createvehicle [_birdType,[100,100,100],[],0,"none"];
-			_logic setvariable ["bird",_bird,true];
+			_logic setvariable [DEF_BIRD,_bird,true];
 		};
 
 		//--- Activated all future addons
 		_addons = [];
 		{
 			if (typeof _x == "ModuleCuratorAddAddons_F") then {
-				_paramAddons = call compile ("[" + (_x getvariable ["addons",""]) + "]");
+				_paramAddons = call compile ("[" + (_x getvariable [DEF_ADDONS,""]) + "]");
 				{
 					if !(_x in _addons) then {_addons set [count _addons,_x];};
 					{
@@ -210,7 +223,7 @@ if (_activated) then {
 			"local",
 			{
 				_logic = _this select 0;
-				_bird = _logic getvariable ["bird",objnull];
+				_bird = _logic getvariable [DEF_BIRD,objnull];
 				_bird setowner owner _logic;
 			}
 		];
@@ -222,7 +235,7 @@ if (_activated) then {
 		_serverCommand = if (_ownerVar == "#adminLogged") then {"#shutdown"} else {"#kick"};
 
 		//--- Black effect until the interface is open
-		_forced = _logic getvariable ["forced",0] > 0;
+		_forced = _logic getvariable [DEF_FORCED,0] > 0;
 		if (_forced) then {
 			_isCurator = switch true do {
 				case (_ownerUID > 0): {
@@ -243,8 +256,8 @@ if (_activated) then {
 
 		//--- Check if player is server admin
 		if (_isAdmin) then {
-			_adminVar = _logic getvariable ["adminVar",""];
-			_logic setvariable ["adminVar",nil];
+			_adminVar = _logic getvariable [DEF_ADMIN_VAR,""];
+			_logic setvariable [DEF_ADMIN_VAR,nil];
 			if (isserver) then {
 				//--- Host
 				missionnamespace setvariable [_adminVar,player];
@@ -288,7 +301,7 @@ if (_activated) then {
 
 			//--- Show hint about pinging for players
 			if (
-				isnil {profilenamespace getvariable "bis_fnc_curatorPinged_done"}
+				isnil {profilenamespace getvariable DEF_BIS_FNC_CURATORPINGED_DONE}
 				&&
 				{isTutHintsEnabled}
 				&&
@@ -414,7 +427,7 @@ if (_activated) then {
 				_costs
 			}
 		];
-		_curator setVariable ["CuratorObjectRegisteredHandler", _id];
+		_curator setVariable [DEF_CURATOR_OBJECT_REGISTERED_HANDLER, _id];
 
 		_curator addEventHandler ["CuratorObjectPlaced", {_this call TG_fnc_CuratorObjectPlaced}];
 		_curator addEventHandler ["CuratorObjectDeleted", {_this call TG_fnc_CuratorObjectDeleted}];
@@ -454,15 +467,15 @@ if (_activated) then {
 		_curator spawn {
 			params ["_curator"];
 			
-			if (isNil{ uiNamespace getVariable "RscTitleDisplayEmpty" }) then {
-				"CommanderGUI" cutRsc ["RscTitleDisplayEmpty", "PLAIN"];
+			if (isNil{ uiNamespace getVariable DEF_RSC_TITLE_DISPLAY_EMPTY }) then {
+				"CommanderGUI" cutRsc [DEF_RSC_TITLE_DISPLAY_EMPTY, "PLAIN"];
 			};
 			
 			private _ctrl = objNull; 
 			
 			while {true} do {
 				if (isNull _ctrl) then {
-					private _display = uiNamespace getVariable "RscTitleDisplayEmpty";
+					private _display = uiNamespace getVariable DEF_RSC_TITLE_DISPLAY_EMPTY;
 					_ctrl = _display ctrlCreate ["RscStructuredText", -1];
 					_ctrl ctrlSetBackgroundColor [0,0,0,0];
 					_ctrl ctrlSetFont "EtelkaMonospacePro"; 
