@@ -10,6 +10,7 @@
 	
 /* Where track pool is stored in the logic's namespace */
 #define LOGIC_JUKEBOX_TRACKS_POOL "TG_TRACKS_POOL"
+#define LOGIC_JUKEBOX_FORCE_ANNOUNCE "TG_FORCE_ANNOUNCE"
 
 	// +++++++++++++++++++++++++++++++++++ \\
 	// 				 Tiberium			   \\

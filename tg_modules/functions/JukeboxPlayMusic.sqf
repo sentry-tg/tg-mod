@@ -7,6 +7,9 @@ if !(isServer) exitWith {};
 
 _announceTracks = ( _logic getVariable ['AnnounceTracks', 0] ) == 1;
 _poolWeighted = _logic getVariable [LOGIC_JUKEBOX_TRACKS_POOL, []];
+
+/* Conforming to EA demands... */
+_forceAnnounce = _logic getVariable [LOGIC_JUKEBOX_FORCE_ANNOUNCE, false];
 	
 /* 1) If there is only one track in the pool, let it have non-zero weight */
 if ( count _poolWeighted == 2 ) then { _poolWeighted set [1, 1] };
@@ -35,7 +38,9 @@ _logic setVariable [LOGIC_JUKEBOX_TRACKS_POOL, _poolWeighted];
 [_newTrack] remoteExec ["playMusic", 0];
 
 /* 7) Write track name in chat if enabled */
-if ( _announceTracks ) then {
+if ( _announceTracks || _forceAnnounce ) then {
 	_name = getText (configFile >> "CfgMusic" >> _newTrack >> "name");
-	[format ["Now playing: %1", _name]] remoteExec ["SystemChat", 0];
+	if ( _forceAnnounce ) then {
+		["© Copyright Electronic Arts, Inc., all rights reserved"] remoteExec ["SystemChat", 0];
+	};
 };

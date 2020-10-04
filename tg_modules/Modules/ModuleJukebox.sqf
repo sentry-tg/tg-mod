@@ -42,16 +42,25 @@ switch _presetMode do {
 		_pool = [
 			"TG_TimeBomb", "TG_Pharotek", "TG_LoneTrooper", "TG_Scouting", "TG_Infrared", "TG_Flurry", "TG_Mutants", "TG_Gloom", "TG_Heroism", "TG_Approach", "TG_DuskHour", "TG_TheDefense", "TG_MadRap", "TG_Valves", "TG_WhatLurks", "TG_Score", "TG_IonStorm", "TG_NodCrush", "TG_RedSky", "TG_TiberianSun_MapTheme", "TG_Elusive", "TG_Hacker", "TG_Infiltration", "TG_LinkUp", "TG_KillingMachine", "TG_RainInTheNight", "TG_SlaveToTheSystem", "TG_DeployMachines"
 		];
+		
+		/* Conforming to EA demands... */
+		_logic setVariable [LOGIC_JUKEBOX_FORCE_ANNOUNCE, true];
 	};
 	case JUKEBOX_PRESET_ONLY_STEALTH: {
 		_pool = [
 			"TG_Infiltration", "TG_RainInTheNight", "TG_Approach", "TG_DuskHour", "TG_Gloom", "TG_IonStorm", "TG_LoneTrooper", "TG_NodCrush", "TG_RedSky", "TG_TheDefense", "TG_TimeBomb", "TG_WhatLurks"
 		];
+		
+		/* Conforming to EA demands... */
+		_logic setVariable [LOGIC_JUKEBOX_FORCE_ANNOUNCE, true];
 	};
 	case JUKEBOX_PRESET_ONLY_ACTION: { 
 		_pool = [
 			"TG_KillingMachine", "TG_LinkUp", "TG_SlaveToTheSystem", "TG_DeployMachines", "TG_Elusive", "TG_Hacker", "TG_Flurry", "TG_Heroism", "TG_Infrared", "TG_MadRap", "TG_Mutants", "TG_Pharotek", "TG_Score", "TG_Scouting", "TG_TiberianSun_MapTheme", "TG_Valves"
 		];
+		
+		/* Conforming to EA demands... */
+		_logic setVariable [LOGIC_JUKEBOX_FORCE_ANNOUNCE, true];
 	};
 	case JUKEBOX_PRESET_CUSTOM: { 
 		_pool = call compile _customTracks; 
@@ -67,7 +76,7 @@ if !( _pool isEqualTypeAll "" ) exitWith {
 	["Invalid track list for Jukebox: '%1'. Exiting...", _pool] call BIS_fnc_error;
 };
 
-/* This check fires if one or more tracks don't exist in the CfgMusic */
+/* This check fires if one or more tracks doesn't exist in the CfgMusic */
 {
 	if !(isClass (configFile >> "CfgMusic" >> _x)) then {
 		["CfgMusic does not contain '%1', missing addon or was it removed?", _x] call BIS_fnc_error;
