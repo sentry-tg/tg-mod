@@ -40,6 +40,7 @@ _logic setVariable [LOGIC_JUKEBOX_TRACKS_POOL, _poolWeighted];
 /* 7) Write track name in chat if enabled */
 if ( _announceTracks || _forceAnnounce ) then {
 	_name = getText (configFile >> "CfgMusic" >> _newTrack >> "name");
+	[format ["Now playing: %1", _name]] remoteExec ["SystemChat", 0];
 	if ( _forceAnnounce ) then {
 		["© Copyright Electronic Arts, Inc., all rights reserved"] remoteExec ["SystemChat", 0];
 	};
