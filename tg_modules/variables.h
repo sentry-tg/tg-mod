@@ -32,6 +32,7 @@
 #define MISSION_MODULE_TIBERIUM_CRYSTAL_VALUE "TG_ModuleTiberiumCrystalValue"
 #define MISSION_MODULE_TIBERIUM_DAMAGE "TG_ModuleTiberiumDamage"
 
+#define TG_UNIT_IS_IMMUNE_TO_TIBERIUM "TG_UNIT_IS_IMMUNE_TO_TIBERIUM"
 
 /* A global variable that stores all tiberium spawners, used by harvesters */
 #define MISSION_TIBERIUM_SPAWNERS "TG_TiberiumSpawners"

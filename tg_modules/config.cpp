@@ -351,8 +351,48 @@ class CfgVehicles {
 			class HealedClasses : Edit {
 				property = "ModuleTiberiumDamage_HealedClasses";
 				displayName = "Units that get healed by Tiberium";
-				tooltip = "Array of classes of units that get healed instead of damaged";
+				tooltip = "Array of classes of units that get healed instead of damaged. Example: ['classname1', 'classname2']";
 				defaultValue = "[]";
+			};
+			class ResurrectInfantry : CheckboxNumber { //["Default"]
+				property = "ModuleTiberiumDamage_ResurrectInfantry";
+				displayName = "Resurrect infantry killed by toxins";
+				tooltip = "If the unit is killed by Tiberium toxins (not explosions), something or SOMEONE can be spawned in its place";
+				typeName = "NUMBER";
+				defaultValue = 1;
+			};
+			class CustomResurrect : Edit {
+				property = "ModuleTiberiumDamage_CustomResurrect";
+				displayName = "Custom";
+				tooltip = "Format [['classname', side, weight],...]. All classnames must be either playable by player or be a vehicle\object. Weight is a positive number, heavier objects get spawned more often. All preset classes have a weight of 1.0";
+				defaultValue = "[]";
+			};
+			class ResurrectPreset: Combo {
+				property = "ModuleTiberiumDamage_ResurrectPreset";
+				displayName = "Resurrection preset"; // Argument label
+				tooltip = "If the field above is too scary for you! Works in conjunction with the field above"; // Tooltip description
+				typeName = "NUMBER"; // Value type, can be "NUMBER", "STRING" or "BOOL"
+				defaultValue = "0"; // Default attribute value. WARNING: This is an expression, and its returned value will be used (50 in this case)
+				class Values
+				{
+					class Option_00 {
+						name = "None";
+						value = 0;
+						default = 1;
+					};
+					class Option_01 {
+						name = "Tiberian Genesis: Visceroids";
+						value = 1;
+					};
+					class Option_02 {
+						name = "Addon: Zombies and Demons by Ryan";
+						value = 2;
+					};
+					class Option_03 {
+						name = "Addon: Max_Alien by Maxjoiner";
+						value = 3;
+					};
+				};
 			};
 		};
 	};
