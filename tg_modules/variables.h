@@ -74,7 +74,7 @@
 #define CURATOR_CLASSES_BUILT_SO_FAR "canBeBuiltClassesPrev"
 
 //-- Used by addCuratorAddons and activateAddons 
-#define CURATOR_ADDONS []
+#define CURATOR_ADDONS ["tg_buildings", "tg_defense", "tg_hover", "tg_mechs", "tg_soldiers", "tg_weapons", "tg_wheeled"]
 
 /* Money given to player after building conyard for first time */
 #define INITIAL_MONEY 3500

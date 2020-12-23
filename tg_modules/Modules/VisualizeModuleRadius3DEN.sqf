@@ -1,7 +1,8 @@
 
 /*
 	This function manages 3DEN draw3D event handlers 
-	that visualize the area of the tiberium field
+	that visualize the area of the module (if _drawMode == "Logic") 
+	or areas around synced objects (if _drawMode == "Synced")
 */
 
 params ["_mode", "_input", ["_drawMode", "Logic"]];

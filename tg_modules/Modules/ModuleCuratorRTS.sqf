@@ -406,7 +406,8 @@ if (_activated) then {
 		/* Only activated addons can be added (i.e., addons preloaded by the mission). All official addons are activated by default, but unofficial ones are activated only when an object contained in such addon is present in the mission. If that's not the case, you can use activateAddons or BIS_fnc_activateAddons to activate them. This is however possible only at the mission start - on the fly activation is not possible */
 
 		//_curator remoteExec ["removeAllCuratorAddons", 2];
-		//[_curator, CURATOR_ADDONS] remoteExec ["addCuratorAddons", 2];
+		[CURATOR_ADDONS] remoteExec ["activateAddons", 2];
+		[_curator, CURATOR_ADDONS] remoteExec ["addCuratorAddons", 2];
 
 
 		[_curator, (BuildingDefs # _curatorSi) # 1] call TG_fnc_CuratorSetBuildingDefs;
@@ -447,7 +448,7 @@ if (_activated) then {
 		};
 
 
-		//-- Give player money after conyard is build for first time
+		//-- Give player money after conyard is built for first time
 		[_curator] spawn {
 			params ["_curator"];
 			private _buildingDefs = _curator call TG_fnc_CuratorGetBuildingDefs;

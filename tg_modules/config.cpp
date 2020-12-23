@@ -364,15 +364,15 @@ class CfgVehicles {
 			class CustomResurrect : Edit {
 				property = "ModuleTiberiumDamage_CustomResurrect";
 				displayName = "Custom";
-				tooltip = "Format [['classname', side, weight],...]. All classnames must be either playable by player or be a vehicle\object. Weight is a positive number, heavier objects get spawned more often. All preset classes have a weight of 1.0";
+				tooltip = "Format [['classname', side, weight],...]. All classnames must be either playable by player or be a vehicle\object! Weight is a positive probability-related number, 'heavier' classnames get spawned more often. All PRESET classes have a default weight of 1.0";
 				defaultValue = "[]";
 			};
 			class ResurrectPreset: Combo {
 				property = "ModuleTiberiumDamage_ResurrectPreset";
 				displayName = "Resurrection preset"; // Argument label
-				tooltip = "If the field above is too scary for you! Works in conjunction with the field above"; // Tooltip description
+				tooltip = "If the field above is too scary for you! Works in conjunction with the field above. However, the side of these preset units is hardcoded to always be INDEPENDENT (GUER)."; // Tooltip description
 				typeName = "NUMBER"; // Value type, can be "NUMBER", "STRING" or "BOOL"
-				defaultValue = "0"; // Default attribute value. WARNING: This is an expression, and its returned value will be used (50 in this case)
+				defaultValue = "0"; // Default attribute value. WARNING: This is an expression, and its returned value will be used
 				class Values
 				{
 					class Option_00 {
