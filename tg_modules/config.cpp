@@ -30,22 +30,17 @@ class CfgFunctions
 			class ModuleTiberiumGardener { file = "\tg_modules\Modules\ModuleTiberiumGardener.sqf"; };
 			class ModuleTiberiumAddSpawner { file = "\tg_modules\Modules\ModuleTiberiumAddSpawner.sqf"; };
 			class ModuleTiberiumDamage { file = "\tg_modules\Modules\ModuleTiberiumDamage.sqf"; };
-			class ModuleAICommander { file = "\tg_modules\Modules\ModuleAICommander.sqf"; };
 			class ModuleJukebox { file = "\tg_modules\Modules\ModuleJukebox.sqf"; };
 			class ModuleTiberiumCrystalValue { file = "\tg_modules\Modules\ModuleTiberiumCrystalValue.sqf"; };
 			class ModuleCuratorRTS { file = "\tg_modules\Modules\ModuleCuratorRTS.sqf"; };
+			class ModuleTiberiumCrystalLight { file = "\tg_modules\Modules\ModuleTiberiumCrystalLight.sqf"; };
 		};
 		/*
 		class AI {
-			class AICommanderInit {
-				file = "\tg_modules\RTS\AICommanderInit.sqf";
-			};
-			class AICommanderClaim {
-				file = "\tg_modules\RTS\AICommanderClaim.sqf";
-			};
-			class AICommanderFindByName {
-				file = "\tg_modules\RTS\AICommanderFindByName.sqf";
-			};
+			class ModuleAICommander { file = "\tg_modules\Modules\ModuleAICommander.sqf"; };
+			class AICommanderInit { file = "\tg_modules\RTS\AICommanderInit.sqf"; };
+			class AICommanderClaim { file = "\tg_modules\RTS\AICommanderClaim.sqf"; };
+			class AICommanderFindByName { file = "\tg_modules\RTS\AICommanderFindByName.sqf"; };
 		};*/
 		class Harvester {
 			class HarvesterAddCapacity { file = "\tg_modules\functions\HarvesterAddCapacity.sqf"; };
@@ -95,7 +90,6 @@ class CfgFunctions
 			class CuratorConvertMoneyToPoints { file = "\tg_modules\functions\CuratorConvertMoneyToPoints.sqf"; };
 			class CuratorUpdateCuratorPoints { file = "\tg_modules\functions\CuratorUpdateCuratorPoints.sqf"; };
 			class CuratorReopenDisplay { file = "\tg_modules\functions\CuratorReopenDisplay.sqf"; };
-			
 		};
 		class CommonFunctions
 		{
@@ -224,6 +218,55 @@ class CfgVehicles {
 				description = "Time needed for the seedling to grow into a medium crystal, and for a medium to turn into a fully matured crystal";
 				typeName = "NUMBER";
 				defaultValue = 128;
+			};
+		};
+	};
+	
+	class TG_ModuleTiberiumCrystalLight : TG_Module {
+		_generalMacro = "TG_ModuleTiberiumCrystalLight";
+		scope = 2;
+		is3DEN = 1;
+		displayName = "Spawn Tiberium Light";
+		function = "TG_fnc_ModuleTiberiumCrystalLight";
+		class ModuleDescription : ModuleDescription {
+			description = "Spawns Tiberium light wherever the module is placed. Arma does not support a lot of lights, so be humble with the amount of lights you place, otherwise the lights will start flickering.";
+		};
+		class Arguments {
+			class CrystalColor {
+				displayName = "Tiberium type";
+				description = "Select color of the Tiberium light";
+				typeName = "NUMBER";
+				class values {
+					class TiberiumGreen {
+						name = "Green Tiberium";
+						value = 0;
+						default = 1;
+					};
+					class TiberiumBlue {
+						name = "Blue Tiberium";
+						value = 1;
+					};
+					class TiberiumPurple {
+						name = "Purple Tiberium";
+						value = 2;
+					};
+					class TiberiumRed {
+						name = "Red Tiberium";
+						value = 3;
+					};
+				};
+			};
+			class Brightness {
+				displayName = "Light brightness";
+				description = "The default value is recommended for single crystals.";
+				typeName = "NUMBER";
+				defaultValue = 0.07;
+			};
+			class AttachToSynced {
+				displayName = "Attach light to synced objects";
+				description = "If true, light will be created and attached to all synced objects. If false, light will be created and attached to the module.";
+				typeName = "BOOL";
+				defaultValue = "false"; 
 			};
 		};
 	};
