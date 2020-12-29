@@ -16,11 +16,12 @@ _activated = _this select 2;
 //	Logic module that runs this code must be a singletone
 [_logic, MISSION_MODULE_TIBERIUM_DAMAGE, "Tiberium Damage Module"] call TG_fnc_MakeSingletone;
 
-_enableDamage = _logic getVariable "DamageInfantry";
 _radius = _logic getVariable "Radius";
 _damage = _logic getVariable "Damage";
 _healedClasses = _logic getVariable "HealedClasses";
 _healedClasses = call compile _healedClasses;
+_protectiveItems = _logic getVariable "ProtectiveItems";
+_protectiveItems = call compile _protectiveItems;
 
 _resurrectInfantry = _logic getVariable "ResurrectInfantry";
 _customResurrect = _logic getVariable "CustomResurrect";
@@ -59,7 +60,7 @@ switch _resurrectPreset do {
 	default {};
 };
 
-if ( _enableDamage == 1 && _damage > 0 ) then 
+if ( _damage > 0 ) then 
 {
-	as = [_radius, _damage, _healedClasses, _resurrectInfantry == 1, _ressurectionConfig] execVM "tg_modules\scripts\TiberiumDamage.sqf";
+	as = [_radius, _damage, _healedClasses, _protectiveItems, _resurrectInfantry == 1, _ressurectionConfig] execVM "tg_modules\scripts\TiberiumDamage.sqf";
 };

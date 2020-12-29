@@ -7,7 +7,7 @@
 
 if !(isServer) exitWith {};
 
-params [["_radius", 6], ["_damage", 0.05], ["_healedClasses", []], ["_resurrectInfantry", false], ["_ressurectionConfig", []], ["_sleep", 2]];
+params [["_radius", 6], ["_damage", 0.05], ["_healedClasses", []], ["_protectiveItems", []], ["_resurrectInfantry", false], ["_ressurectionConfig", []], ["_sleep", 2]];
 
 /* Prevent player's death in singleplayer in order to be able to resurrect him */
 _presetClasses = _ressurectionConfig select { count _x == 4 };
@@ -145,7 +145,17 @@ while { True } do
 				if ( _skipSetDamage ) then {
 					_skipSetDamage = false;
 				} else {
-					_iterable setDamage _newDamageLevel;
+					_hasProtectiveItems = false;
+					if (count _protectiveItems > 0) then {
+						_protectiveItems = _protectiveItems apply {toLowerANSI _x};
+						//_equippedItems = [headgear _iterable, goggles _iterable, vest _iterable] + vestItems _iterable + uniformItems _iterable + backpackItems _iterable apply {toLowerANSI _x};
+						_equippedItems = [headgear _iterable, goggles _iterable, uniform _iterable, vest _iterable] apply {toLowerANSI _x};
+						_hasProtectiveItems = count (_equippedItems arrayIntersect _protectiveItems) > 0;
+					};
+					
+					if !(_hasProtectiveItems) then {
+						_iterable setDamage _newDamageLevel;
+					};
 				};
 			};
 		};

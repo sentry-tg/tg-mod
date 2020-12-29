@@ -25,6 +25,7 @@ switch _mode do {
 		};
 		_synced = synchronizedObjects _logic;
 		{
+			_x allowDamage false;
 			[_x, _fakeType, getPos _x, _fieldRadius] call TG_fnc_TiberiumAddSpawner;
 		} 
 		forEach _synced;

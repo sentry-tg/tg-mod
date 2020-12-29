@@ -370,13 +370,6 @@ class CfgVehicles {
 			sync[] = {};
 		};
 		class Attributes : AttributesBase {
-			class DamageInfantry : CheckboxNumber { //["Default"]
-				property = "ModuleTiberiumDamage_EnableDamage";
-				displayName = "Damage to infantry";
-				tooltip = "Enable damage to infantry";
-				typeName = "NUMBER";
-				defaultValue = 1;
-			};
 			class Radius : Edit {
 				property = "ModuleTiberiumDamage_Radius";
 				displayName = "Crystal damage radius";
@@ -387,14 +380,20 @@ class CfgVehicles {
 			class Damage : Edit {
 				property = "ModuleTiberiumDamage_Damage";
 				displayName = "Damage per crystal";
-				tooltip = "Each crystal within Radius will contribute this amount of damage to the unit's health";
+				tooltip = "Must be a positive number. Each crystal within Radius will contribute this amount of damage to the unit's health per tick. Value of 1.0 will insta-kill the unit.";
 				typeName = "NUMBER";
 				defaultValue = 0.05;
 			};
 			class HealedClasses : Edit {
 				property = "ModuleTiberiumDamage_HealedClasses";
-				displayName = "Units that get healed by Tiberium";
+				displayName = "Units that get healed";
 				tooltip = "Array of classes of units that get healed instead of damaged. Example: ['classname1', 'classname2']";
+				defaultValue = "[]";
+			};
+			class ProtectiveItems : Edit {
+				property = "ModuleTiberiumDamage_ProtectiveItems";
+				displayName = "Protective items";
+				tooltip = "Array of classes of headgears, goggles, uniforms or vests that protect from Tiberium toxin damage. Will only protect while equipped (worn). Example: ['classname1', 'classname2']";
 				defaultValue = "[]";
 			};
 			class ResurrectInfantry : CheckboxNumber { //["Default"]
@@ -402,20 +401,20 @@ class CfgVehicles {
 				displayName = "Resurrect infantry killed by toxins";
 				tooltip = "If the unit is killed by Tiberium toxins (not explosions), something or SOMEONE can be spawned in its place";
 				typeName = "NUMBER";
-				defaultValue = 1;
+				defaultValue = 0;
 			};
 			class CustomResurrect : Edit {
 				property = "ModuleTiberiumDamage_CustomResurrect";
-				displayName = "Custom";
-				tooltip = "Format [['classname', side, weight],...]. All classnames must be either playable by player or be a vehicle\object! Weight is a positive probability-related number, 'heavier' classnames get spawned more often. All PRESET classes have a default weight of 1.0";
+				displayName = "Custom resurrection classes";
+				tooltip = "Format [['classname', side, weight],...]. All classnames must be either playable by player or be a vehicle\object! Weight is a positive probability-related number, 'heavier' classnames get spawned more often. All PRESET classes have a default weight of 1.0 and side INDEPENDENT.";
 				defaultValue = "[]";
 			};
 			class ResurrectPreset: Combo {
 				property = "ModuleTiberiumDamage_ResurrectPreset";
-				displayName = "Resurrection preset"; // Argument label
-				tooltip = "If the field above is too scary for you! Works in conjunction with the field above. However, the side of these preset units is hardcoded to always be INDEPENDENT (GUER)."; // Tooltip description
-				typeName = "NUMBER"; // Value type, can be "NUMBER", "STRING" or "BOOL"
-				defaultValue = "0"; // Default attribute value. WARNING: This is an expression, and its returned value will be used
+				displayName = "Resurrection preset"; 
+				tooltip = "If the field above is too scary for you! Works in conjunction with the field above. However, the side of these preset units is hardcoded to always be INDEPENDENT (GUER).";
+				typeName = "NUMBER"; 
+				defaultValue = "0"; // WARNING: This is an expression, and its returned value will be used
 				class Values
 				{
 					class Option_00 {
@@ -424,15 +423,15 @@ class CfgVehicles {
 						default = 1;
 					};
 					class Option_01 {
-						name = "Tiberian Genesis: Visceroids";
+						name = "Tiberian Genesis: Visceroids (does nothing right now)";
 						value = 1;
 					};
 					class Option_02 {
-						name = "Addon: Zombies and Demons by Ryan";
+						name = "Addon: Zombies and Demons by Ryan (spawn as zombie)";
 						value = 2;
 					};
 					class Option_03 {
-						name = "Addon: Max_Alien by Maxjoiner";
+						name = "Addon: Max_Alien by Maxjoiner (spawn as alien)";
 						value = 3;
 					};
 				};
