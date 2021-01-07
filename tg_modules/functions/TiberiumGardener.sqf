@@ -3,19 +3,19 @@
 
 params ["_logic"];
 
-_sleepConst = _logic getvariable "GrowthSleep";
-_sleepRnd = _logic getvariable "GrowthRndSleep";
-_crystalRadius = _logic getvariable "CrystalDistance";
-_hideRadius = _logic getvariable "HideObjectRadius";
-_steepness = _logic getvariable "SteepnessLimit";
-_childrenPerFather = _logic getvariable "ChildrenPerFather";
-_greenPhaseTime = _logic getvariable "GreenTiberiumPhaseTime";
-_bluePhaseTime = _logic getvariable "BlueTiberiumPhaseTime";
-_purplePhaseTime = _logic getvariable "PurpleTiberiumPhaseTime";
-_redPhaseTime = _logic getvariable "RedTiberiumPhaseTime";
-
 while { !isNull _logic } do 
 {
+	_sleepConst = _logic getvariable "GrowthSleep";
+	_sleepRnd = _logic getvariable "GrowthRndSleep";
+	_crystalRadius = _logic getvariable "CrystalDistance";
+	_hideRadius = _logic getvariable "HideObjectRadius";
+	_steepness = _logic getvariable "SteepnessLimit";
+	_childrenPerFather = _logic getvariable "ChildrenPerFather";
+	_greenPhaseTime = _logic getvariable "GreenTiberiumPhaseTime";
+	_bluePhaseTime = _logic getvariable "BlueTiberiumPhaseTime";
+	_purplePhaseTime = _logic getvariable "PurpleTiberiumPhaseTime";
+	_redPhaseTime = _logic getvariable "RedTiberiumPhaseTime";
+
 	_fathers = [] call TG_fnc_TiberiumGetSpawners;
 	_acceptedCoords = [];
 	_i = 0;
