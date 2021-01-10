@@ -34,6 +34,7 @@ class CfgFunctions
 			class ModuleTiberiumCrystalValue { file = "\tg_modules\Modules\ModuleTiberiumCrystalValue.sqf"; };
 			class ModuleCuratorRTS { file = "\tg_modules\Modules\ModuleCuratorRTS.sqf"; };
 			class ModuleTiberiumCrystalLight { file = "\tg_modules\Modules\ModuleTiberiumCrystalLight.sqf"; };
+			class ModuleREADME { file = "\tg_modules\Modules\ModuleREADME.sqf"; };
 		};
 		/*
 		class AI {
@@ -156,7 +157,7 @@ class CfgVehicles {
 		displayName = "Tiberium Gardener";
 		function = "TG_fnc_ModuleTiberiumGardener";
 		class ModuleDescription : ModuleDescription {
-			description = "Required for Tiberium crystals to grow. Configures Tiberium growth. This is a global module, so place only one per mission";
+			description = "This module is required for Tiberium crystals to be grown. Configures Tiberium growth. This is a global module, so place only one per mission. If you add a Tiberium spawner without placing Tiberium Gardener Module, you will get an error message at the start of mission.";
 		};
 		class Arguments {
 			class GrowthSleep {
@@ -229,7 +230,11 @@ class CfgVehicles {
 		displayName = "Spawn Tiberium Light";
 		function = "TG_fnc_ModuleTiberiumCrystalLight";
 		class ModuleDescription : ModuleDescription {
-			description = "Spawns Tiberium light wherever the module is placed. Arma does not support a lot of lights, so be humble with the amount of lights you place, otherwise the lights will start flickering.";
+			description = "Spawns Tiberium light wherever the module is placed, or attaches lights to synced objects. Arma supports only a few concurrent lights being on screen at a time, so be humble with the amount of lights you place, otherwise the lights will start flickering. This module is intended to use in situations where you have only a few crystals (1-5 crystals inside a room or a cave, etc) and you can afford adding a light to every single crystal in that space.";
+			sync[] = {"Anything"};
+			class Anything : Anything {
+				optional = 0;
+			};
 		};
 		class Arguments {
 			class CrystalColor {
@@ -277,7 +282,7 @@ class CfgVehicles {
 		displayName = "Tiberium Value";
 		function = "TG_fnc_ModuleTiberiumCrystalValue";
 		class ModuleDescription : ModuleDescription {
-			description = "Set cost for Tiberium crystals. This is a global module, so place only one per mission";
+			description = "Set amount of $$$ received for delivering Tiberium crystals to the Refinery. This is a global module, so place only one per mission.";
 		};
 		class Attributes : AttributesBase {
 			class Green : Edit { //["Default"]
@@ -318,7 +323,7 @@ class CfgVehicles {
 		displayName = "Add Tiberium Spawner";
 		function = "TG_fnc_ModuleTiberiumAddSpawner";
 		class ModuleDescription : ModuleDescription {
-			description = "Makes synced object(s) spawn Tiberium. The module unsyncs the object once it was added to the list of spawners";
+			description = "Makes synced object(s) spawn Tiberium. If everything is right, you should see a circle being drawn around the objects you synchronized. The circle is a visual representation of the maximum radius the field can take. This module only marks objects as Tiberium spawners, the actual growth of Tiberium crystals is directed by Tiberium Gardener Module. If you place this module without having Tiberium Gardener Module, you will get an error at the start of the mission.";
 			sync[] = {"Anything"};
 			class Anything : Anything {
 				optional = 0;
@@ -366,7 +371,7 @@ class CfgVehicles {
 		isDisposable = 1; // 1 if modules is to be disabled once it's activated (i.e., repeated trigger activation won't work)
 		isGlobal = 0; // 0 for server only execution, 1 for global execution, 2 for persistent global execution
 		class ModuleDescription : ModuleDescription {
-			description = "Tiberium crystals deal damage to infantry";
+			description = "Place this module to make Tiberium crystals damage or heal infantry. You can specify Protective Items that grant immunity from Tiberium toxins as well as objects or creatures the killed soldiers will be respawned as. In order to protect the wearer, the protective items will have to be equipped (not in inventory). The Protective Items should be an array of strings that may include headgear, goggles, uniform or vest classes.";
 			sync[] = {};
 		};
 		class Attributes : AttributesBase {
@@ -518,7 +523,7 @@ class CfgVehicles {
 		isDisposable = 1; // 1 if modules is to be disabled once it's activated (i.e., repeated trigger activation won't work)
 		isGlobal = 0; // 0 for server only execution, 1 for global execution, 2 for persistent global execution
 		class ModuleDescription : ModuleDescription {
-			description = "Module that runs on server and plays music for all connected clients";
+			description = "Module that runs on server and broadcasts music tracks to all connected clients. Supports conditions and can be easily scripted to play specific tracks when certain conditions are met. Has custom coded built-in mechanism that protects from repeating same tracks too often: each track has a probability to be played which increases every time the track wasn't selected. When selecting a copyrighted music preset, a copyright message will be shown in systemChat, which can not be disabled. This is one of the restrictions EA imposed on us to let us use their copyrighted content.";
 			sync[] = {};
 		};
 		class Attributes : AttributesBase {
@@ -596,5 +601,18 @@ class CfgVehicles {
 				defaultValue = 0;
 			};
 		};
+	};
+	
+	class TG_ModuleREADME : TG_Module {
+		_generalMacro = "TG_ModuleREADME";
+		scope = 2;
+		displayName = "README Module (Instructions)";
+		function = "TG_fnc_ModuleREADME";
+		isDisposable = 1; // 1 if modules is to be disabled once it's activated (i.e., repeated trigger activation won't work)
+		isGlobal = 2; // 0 for server only execution, 1 for global execution, 2 for persistent global execution
+		class ModuleDescription : ModuleDescription {
+			description = "Pulls module descriptions and their syncable objects from configFile and displays them as entries in your journal (if you are reading this text, you are probably already aware of that). Intended to be used only when figuring out how modules work and checking module's syncable objects. Don't forget to delete this module before sending your mission to players, because otherwise they will have entries in journal that are unrelated to gameplay.";
+			sync[] = {};
+		}; 
 	};
 };
