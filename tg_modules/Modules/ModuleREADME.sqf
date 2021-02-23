@@ -39,4 +39,8 @@ _moduleCfgs = configProperties [configFile >> "CfgVehicles", "isClass _x && inhe
 	};
 	
 	player createDiaryRecord [_mainTopic, [_moduleName, format ["%1<br /><br />%2", _moduleDescription, _moduleSync]]];
+	
 } forEach _moduleCfgs;
+
+
+hint "Check your diary! Open yor Map [M], then press [J] to open your Journal!";
