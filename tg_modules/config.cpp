@@ -35,6 +35,7 @@ class CfgFunctions
 			class ModuleTiberiumCrystalLight { file = "\tg_modules\Modules\ModuleTiberiumCrystalLight.sqf"; };
 			class ModuleREADME { file = "\tg_modules\Modules\ModuleREADME.sqf"; };
 			class ModuleIonCannon { file = "\tg_modules\Modules\ModuleIonCannon.sqf"; };
+			class ModuleAtmosphereChanger { file = "\tg_modules\Modules\ModuleAtmosphereChanger.sqf"; };
 		};
 		/*
 		class AI {
@@ -426,106 +427,6 @@ class CfgVehicles {
 		};
 	};
 	
-	class TG_ModuleTiberiumFogArea : TG_Module {
-		_generalMacro = "TG_ModuleTiberiumFogArea";
-		scope = 2;
-		is3DEN = 1;
-		displayName = "Tiberium Fog Area";
-		function = "TG_fnc_ModuleTiberiumFogArea";
-		class ModuleDescription : ModuleDescription {
-			description = "";
-			sync[] = {};
-		};
-		class Arguments {
-			class FogColor {
-				displayName = "Tiberium type";
-				description = "Select the color of Tiberium fog";
-				typeName = "NUMBER";
-				class values {
-					class TiberiumGreen {
-						name = "Green Tiberium";
-						value = 0;
-						default = 1;
-					};
-					class TiberiumBlue {
-						name = "Blue Tiberium";
-						value = 1;
-					};
-					class TiberiumPurple {
-						name = "Purple Tiberium";
-						value = 2;
-					};
-					class TiberiumRed {
-						name = "Red Tiberium";
-						value = 3;
-					};
-				};
-			};
-			class Radius {
-				displayName = "Field radius";
-				description = "Maximum distance from the initial source of this Tiberium field. Setting to 0 disables any limits and allows Tiberium to spread uncontrollably";
-				typeName = "NUMBER";
-				defaultValue = 50;
-			};
-		};
-		
-		class Attributes : AttributesBase {
-			class AnnounceTracks : CheckboxNumber { //["Default"]
-				property = "ModuleJukebox_AnnounceTracks";
-				displayName = "Announce tracks";
-				tooltip = "Announce track names in system chat";
-				typeName = "NUMBER";
-				defaultValue = 0;
-			};
-			class Preset: Combo {
-				property = "ModuleJukebox_Preset";
-				displayName = "Preset"; // Argument label
-				tooltip = "A quick way to setup the general mood of the tracks played"; // Tooltip description
-				typeName = "NUMBER"; // Value type, can be "NUMBER", "STRING" or "BOOL"
-				defaultValue = "0"; // Default attribute value. WARNING: This is an expression, and its returned value will be used (50 in this case)
-				class Values
-				{
-					class AllTracks {
-						name = "All Tiberian Genesis tracks";
-						value = 0;
-						default = 1;
-					};
-					class Stealth {
-						name = "Stealth Tiberian Genesis tracks";
-						value = 1;
-					};
-					class Action {
-						name = "Action Tiberian Genesis tracks";
-						value = 2;
-					};
-					class Custom {
-						name = "Custom tracks";
-						value = 3;
-					};
-				};
-			};
-			class StartCondition: Edit {
-				property = "ModuleJukebox_StartCondition";
-				displayName = "Start condition";
-				tooltip = "Condition that has to be true in order for this module to start working. Condition is checked every second and only on Server";
-				defaultValue = "true";
-			};
-			class StopCondition: Edit {
-				property = "ModuleJukebox_StopCondition";
-				displayName = "Stop condition";
-				tooltip = "Condition that has to be true in order for this module to stop working, after which the module will delete itself. Condition is checked every second and only on Server";
-				defaultValue = "false";
-			};
-			class LoopConditions : CheckboxNumber { //["Default"]
-				property = "ModuleJukebox_LoopConditions";
-				displayName = "Loop conditions";
-				tooltip = "If enabled, instead of deleting itself, the module will restart after Stop Condition turned true. It allows a cycle: Start Condition -> Stop Condition -> Start Condition -> etc. Use this if you want to be able to stop and resume the work of the module";
-				typeName = "NUMBER";
-				defaultValue = 0;
-			};
-		};
-	};
-	
 	// +++++++++++++++++++++++++++++++++++ \\
 	// 				 Jukebox			   \\
 	// +++++++++++++++++++++++++++++++++++ \\
@@ -662,4 +563,80 @@ class CfgVehicles {
 		};
 	};
 	
+	class TG_AtmosphereChanger_Module : TG_Module {
+		_generalMacro = "TG_AtmosphereChanger_Module";
+		scope = 2;
+		is3DEN = 1;
+		isDisposable = 1; // 1 if modules is to be disabled once it's activated (i.e., repeated trigger activation won't work)
+		isGlobal = 2; // 0 for server only execution, 1 for global execution, 2 for persistent global execution
+		displayName = "Atmosphere Changer";
+		function = "TG_fnc_ModuleAtmosphereChanger";
+		class ModuleDescription : ModuleDescription {
+			description = "Module that can change how atmosphere looks like when certain conditions are met, and\or player enters certain areas.";
+			sync[] = {};
+		};
+		class Attributes : AttributesBase {
+			class Radius : Edit {
+				property = "ModuleAtmosphereChanger_Radius";
+				displayName = "Radius";
+				tooltip = "If this is > 0, the atmospheric changes will occur only while the player is within this radius. If radius = 0, the changes are happening globally on the whole map.";
+				typeName = "NUMBER";
+				defaultValue = 0;
+			};
+			class Preset: Combo {
+				property = "ModuleAtmosphereChanger_Preset";
+				displayName = "Preset"; // Argument label
+				tooltip = "A quick way to setup the general mood of the atmospheric changes."; // Tooltip description
+				typeName = "NUMBER"; // Value type, can be "NUMBER", "STRING" or "BOOL"
+				defaultValue = "0"; // Default attribute value. WARNING: This is an expression, and its returned value will be used (50 in this case)
+				class Values
+				{
+					class TiberiumFog {
+						name = "Tiberium fog";
+						value = 0;
+						default = 1;
+					};
+				};
+			};
+			
+			class ColorTint: Edit {
+				property = "ModuleAtmosphereChanger_ColorTint";
+				displayName = "RGBA Color Tint";
+				tooltip = "Format is [Red, Green, Blue, Brightness]. The bigger the color number, the more prevalent this color component will be. In other words, for the picture to have green tint, make the Green component slightly bigger than the other two.";
+				defaultValue = "[1,1.2,1,1]";
+			};
+			class FogParams: Edit {
+				property = "ModuleAtmosphereChanger_ColorTint";
+				displayName = "Fog Parameters";
+				tooltip = "Format is [_fogValue, _fogDecay, _fogBase]. If you don't want fog to spawn, leave this empty ([]). If you want to use module's height for _fogBase, simply don't specify the third element of the array ([_fogValue, _fogDecay]).";
+				defaultValue = "[1,1.2,1,1]";
+			};
+			class ToxicClouds: CheckboxNumber {
+				property = "ModuleAtmosphereChanger_ToxicClouds";
+				displayName = "RGBA Color tint";
+				tooltip = "";
+				defaultValue = "1";
+			};
+			
+			class StartCondition: Edit {
+				property = "ModuleAtmosphereChanger_StartCondition";
+				displayName = "Start condition";
+				tooltip = "Condition that has to be true in order for this module to start working. Condition is checked every second, locally.";
+				defaultValue = "true";
+			};
+			class StopCondition: Edit {
+				property = "ModuleAtmosphereChanger_StopCondition";
+				displayName = "Stop condition";
+				tooltip = "Condition that has to be true in order for this module to stop working, after which the module will delete itself. Condition is checked every second, locally.";
+				defaultValue = "false";
+			};
+			class LoopConditions : CheckboxNumber { //["Default"]
+				property = "ModuleAtmosphereChanger_LoopConditions";
+				displayName = "Loop conditions";
+				tooltip = "If enabled, instead of deleting itself, the module will restart after Stop Condition turned true. It allows a cycle: Start Condition -> Stop Condition -> Start Condition -> etc. Use this if you want to be able to stop and resume the work of the module.";
+				typeName = "NUMBER";
+				defaultValue = 1;
+			};
+		};
+	};
 };
