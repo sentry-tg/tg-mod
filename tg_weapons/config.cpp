@@ -518,6 +518,7 @@ class CfgAmmo {
 		
 		tg_numberOfProjectiles = 3; // Number of child projectiles spawned per shot. More projectiles = higher chance of hitting maximum MOA
 		tg_projectile = "TG_Salvo_Round"; // Classname of the child projectiles
+		tg_on_deletion = "TG_fnc_SpecialRound_SalvoRound";
 	};
 	
 	class TG_Repulsor_Round : TG_SpecialRound { //["BulletCore","Default"]
@@ -559,6 +560,7 @@ class CfgFunctions {
 		class EventHandlers {
 			class SpecialRound_FiredEH { file = "\tg_weapons\functions\SpecialRound_FiredEH.sqf"; };
 			class SpecialRound_RepulsorRound { file = "\tg_weapons\functions\SpecialRound_RepulsorRound.sqf"; };
+			class SpecialRound_SalvoRound { file = "\tg_weapons\functions\SpecialRound_SalvoRound.sqf"; };
 		};
 		class PiP {
 			class Scope2Screen { file = "\tg_weapons\functions\Scope2Screen.sqf"; };

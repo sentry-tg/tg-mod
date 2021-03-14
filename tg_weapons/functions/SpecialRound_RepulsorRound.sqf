@@ -1,14 +1,19 @@
 
+/*
+	While stealing this code, please give credits to kaydol.
+	Originally written for Tiberian Genesis addon which can be found on Arma 3 Steam Workshop.
+*/
+
+#define DEBUG 1
+
 params ["_unit", "_weapon", "_muzzle", "_mode", "_ammo", "_magazine", "_projectile"];
 
 #define BLAST_FORCE 10
-#define BLAST_RADIUS 10
-#define OFFSET [0,10,0]
+#define BLAST_RADIUS 4
+#define OFFSET 10
 #define LOS_NONE 0
 #define LOS_DIRECT 1
 #define LOS_INDIRECT 2
-
-//-- Get affected units 
 
 _fnc_lineOfSightKind = {
 	params ["_unit", "_object"];
@@ -28,22 +33,77 @@ _fnc_lineOfSightKind = {
 	LOS_INDIRECT
 };
 
-_affectedUnits = ((_unit modelToWorldVisual OFFSET) nearEntities BLAST_RADIUS) select { _x != _unit && [_unit, _x] call _fnc_lineOfSightKind != LOS_NONE };
+//-- Cast a ray with a length of OFFSET and if it intersects with something then use the 
+//-- intersection pos as center for the explosion otherwise use the end of the ray as the explosion center
+_centerASL = eyePos _unit vectorAdd (_unit weaponDirection currentWeapon _unit vectorMultiply OFFSET);
+_intersection = lineIntersectsSurfaces [eyePos _unit, _centerASL, _unit];
+if (count _intersection > 0) then {
+	(_intersection # 0) params ["_intersectPosASL", "_surfaceNormal", "_intersectObject", "_parentObject"];
+	_centerASL = _intersectPosASL;
+};
+
+_affectedUnits = ((ASLToAGL _centerASL) nearEntities BLAST_RADIUS) select { _x != _unit && [_unit, _x] call _fnc_lineOfSightKind != LOS_NONE };
 _affectedUnitsWithForceDir = _affectedUnits apply { [_x, (eyePos _unit vectorFromTo getPosASL _x) vectorMultiply ((_unit distance _x) * BLAST_FORCE)] };
+
+#ifdef DEBUG 
+TG_RepulsorRound_EndPos = ASLToAGL _centerASL;
+TG_RepulsorRound_MuzzlePos = ASLToAGL eyePos _unit;
+
+if !( isNil { TG_RepulsorRound_Draw3D_Circle } ) then {
+	if !( TG_RepulsorRound_Draw3D_Circle isEqualTo "" ) then {
+		[TG_RepulsorRound_Draw3D_Circle, "onEachFrame"] call BIS_fnc_removeStackedEventHandler;
+	};
+	TG_RepulsorRound_Draw3D_Circle = nil;
+};
+
+_code = {
+	_circles = [];
+	{
+		_corners = [];
+		_cornersCount = 20;
+		_turnAngle = 360 / _cornersCount;
+		_i = 0;
+		for [{_i = 0},{_i < _cornersCount},{_i = _i + 1}] do {
+			_pos = _x getPos [BLAST_RADIUS, _i * _turnAngle];
+			_pos set [2, _x # 2];
+			_corners pushBack _pos;
+		};
+		_circles pushBack _corners;
+	}
+	forEach [TG_RepulsorRound_EndPos];
+	
+	{
+		_size = count _x;
+		for [{_i = 0},{_i < _size},{_i = _i + 1}] do {
+			drawLine3D [_x # _i, _x # (( _i + 1 ) % _size ), [1,0,0,1]];
+		};
+	} 
+	forEach _circles;		
+};
+TG_RepulsorRound_Draw3D_Circle = ["TG_RepulsorRound_Draw3D_Circle", "onEachFrame", _code] call BIS_fnc_addStackedEventHandler;
+
+
+["TG_RepulsorRound_Draw3D", "onEachFrame"] call BIS_fnc_removeStackedEventHandler;
+["TG_RepulsorRound_Draw3D", "onEachFrame", {
+	drawLine3D [TG_RepulsorRound_MuzzlePos, TG_RepulsorRound_EndPos, [1,0,0,1]];
+}] call BIS_fnc_addStackedEventHandler;
+
+#endif
 
 //systemChat str _affectedUnitsWithForceDir;
 
-[_unit, {
+[[_unit, _centerASL], {
 	if (!hasInterface) exitWith {};
-	private _emitter = "#particlesource" createVehicleLocal getPos _this;
-	_emitter attachTo [_this, OFFSET, "leftHand"];
+	params ["_unit", "_centerASL"];
+	private _emitter = "#particlesource" createVehicleLocal getPos _unit;
+	_emitter setPosASL _centerASL;
 	_emitter setParticleParams [["\A3\data_f\ParticleEffects\Universal\Refract.p3d",1,0,1,1],
 		"", 
 		"Billboard",
 		1, 
 		1, // lifeTime
 		[0,0,0], // position
-		(_this weaponDirection currentWeapon _this) vectorMultiply 10, // moveVelocity
+		(_unit weaponDirection currentWeapon _unit) vectorMultiply 10, // moveVelocity
 		0, // rotationVelocity (rotations per second)
 		1, // weight (weight of the particle, kg)
 		1, // volume (volume of the particle in m3)
@@ -71,7 +131,7 @@ _affectedUnitsWithForceDir = _affectedUnits apply { [_x, (eyePos _unit vectorFro
 	
 [[_affectedUnitsWithForceDir],
 {
-	// First call is on server, because only server knows what clients own what units
+	//-- First call is on server, because only server knows what clients own what units
 	params ["_affectedUnitsWithForceDir"];
 	
 	_ownerArr = _affectedUnitsWithForceDir apply { owner (_x # 0) };
@@ -82,7 +142,7 @@ _affectedUnitsWithForceDir = _affectedUnits apply { [_x, (eyePos _unit vectorFro
 		_clientId = _x;
 		_unitsOwnedByThisClient = _affectedUnitsWithForceDir select { owner (_x # 0) == _clientId };
 		
-		// Execute where the unit is local
+		//-- Execute where the unit is local
 		[[_unitsOwnedByThisClient], {
 			params ["_localUnitsWithForceDir"];
 			_fnc_forceRagdoll = {
