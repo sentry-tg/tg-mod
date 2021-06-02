@@ -32,6 +32,7 @@ class CfgFunctions
 			class ModuleTiberiumDamage { file = "\tg_modules\Modules\ModuleTiberiumDamage.sqf"; };
 			class ModuleJukebox { file = "\tg_modules\Modules\ModuleJukebox.sqf"; };
 			class ModuleTiberiumCrystalValue { file = "\tg_modules\Modules\ModuleTiberiumCrystalValue.sqf"; };
+			class ModuleCuratorRTS { file = "\tg_modules\Modules\ModuleCuratorRTS.sqf"; };
 			class ModuleTiberiumCrystalLight { file = "\tg_modules\Modules\ModuleTiberiumCrystalLight.sqf"; };
 			class ModuleREADME { file = "\tg_modules\Modules\ModuleREADME.sqf"; };
 			class ModuleIonCannon { file = "\tg_modules\Modules\ModuleIonCannon.sqf"; };
@@ -74,6 +75,24 @@ class CfgFunctions
 			class TiberiumGardener { file = "\tg_modules\functions\TiberiumGardener.sqf"; };
 			class TiberiumGetChildrenPos { file = "\tg_modules\functions\TiberiumGetChildrenPos.sqf"; };
 			class TiberiumSpawnCrystal { file = "\tg_modules\functions\TiberiumSpawnCrystal.sqf"; };
+		};
+		class Curator {
+			class BuildingDefs { file = "\tg_modules\functions\BuildingDefs.sqf"; };
+			class CuratorAddMoney { file = "\tg_modules\functions\CuratorAddMoney.sqf"; };
+			class CuratorSetMoney { file = "\tg_modules\functions\CuratorSetMoney.sqf"; };
+			class CuratorGetMoney { file = "\tg_modules\functions\CuratorGetMoney.sqf"; };
+			class CuratorGetMaxMoney { file = "\tg_modules\functions\CuratorGetMaxMoney.sqf"; };
+			class CuratorSetBuildingDefs { file = "\tg_modules\functions\CuratorSetBuildingDefs.sqf"; };
+			class CuratorGetBuildingDefs { file = "\tg_modules\functions\CuratorGetBuildingDefs.sqf"; };
+			class CuratorUpdateBuildingArea { file = "\tg_modules\functions\CuratorUpdateBuildingArea.sqf"; };
+			class CuratorGetCanBeBuiltClasses { file = "\tg_modules\functions\CuratorGetCanBeBuiltClasses.sqf"; };
+			class CuratorUpdateBuildingList { file = "\tg_modules\functions\CuratorUpdateBuildingList.sqf"; };
+			class CuratorObjectPlaced { file = "\tg_modules\functions\CuratorObjectPlaced.sqf"; };
+			class CuratorObjectDeleted { file = "\tg_modules\functions\CuratorObjectDeleted.sqf"; };
+			class CuratorObjectSelectionChanged { file = "\tg_modules\functions\CuratorObjectSelectionChanged.sqf"; };
+			class CuratorConvertMoneyToPoints { file = "\tg_modules\functions\CuratorConvertMoneyToPoints.sqf"; };
+			class CuratorUpdateCuratorPoints { file = "\tg_modules\functions\CuratorUpdateCuratorPoints.sqf"; };
+			class CuratorReopenDisplay { file = "\tg_modules\functions\CuratorReopenDisplay.sqf"; };
 		};
 		class CommonFunctions
 		{
@@ -424,6 +443,73 @@ class CfgVehicles {
 					};
 				};
 			};
+		};
+	};
+	
+	class TG_ModuleCuratorRTS : TG_Module {
+		_generalMacro = "TG_ModuleCuratorRTS";
+		scope = 2;
+		displayName = "Curator RTS";
+		function = "TG_fnc_ModuleCuratorRTS";
+		isDisposable = 1; // 1 if modules is to be disabled once it's activated (i.e., repeated trigger activation won't work)
+		isGlobal = 2; // 0 for server only execution, 1 for global execution, 2 for persistent global execution
+		
+		simulation = "curator";
+		vehicleClass = "Modules";
+		functionPriority = 1;
+		icon = "\a3\Modules_F_Curator\Data\iconCurator_ca.paa";
+		portrait = "\a3\Modules_F_Curator\Data\portraitCurator_ca.paa";
+		
+		class Attributes : AttributesBase {
+			class Owner : Edit { //["Default"]
+				displayName = "Owner";
+				tooltip = "Unit with access to the Zeus interface. Can be an objectâ€™s variable name, player UID, or you can use #adminLogged or #adminVoted to give access to the server admin.";
+				property = "ModuleCurator_F_Owner";
+			};
+			class Name : Edit { //["Default"]
+				displayName = "Name";
+				tooltip = "Custom name displayed for other players";
+				property = "ModuleCurator_F_Name";
+			};
+			class Forced : CheckboxNumber { //["Default"]
+				displayName = "Forced interface";
+				tooltip = "Open the interface by default and prevent the player from closing it.";
+				property = "ModuleCurator_F_Forced";
+			};
+			class ModuleDescription : ModuleDescription {};
+		};
+		class Arguments {
+			class Owner {
+				displayName = "Owner";
+				description = "Unit with access to the Zeus interface. Can be an objectâ€™s variable name, player UID, or you can use #adminLogged or #adminVoted to give access to the server admin.";
+				defaultValue = "";
+			};
+			class Name {
+				displayName = "Name";
+				description = "Custom name displayed for other players";
+				defaultValue = "";
+			};
+			class Forced {
+				displayName = "Forced interface";
+				description = "Open the interface by default and prevent the player from closing it.";
+				typeName = "NUMBER";
+				class values {
+					class Enabled {
+						name = "Enabled";
+						value = 1;
+					};
+					class Disabled {
+						name = "Disabled";
+						value = 0;
+						default = 1;
+					};
+				};
+			};
+		};
+		
+		class ModuleDescription : ModuleDescription {
+			description = "";
+			sync[] = {};
 		};
 	};
 	
