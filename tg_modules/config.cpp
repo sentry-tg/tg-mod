@@ -5,7 +5,7 @@ class CfgPatches
 	{
 		units[] = {};
 		weapons[] = {};
-		requiredAddons[] = {"tg_core", "tg_obj", "tg_music"};
+		requiredAddons[] = {"TG_Core","TG_Objects","TG_Music"};
 		requiredVersion = 0.100000;
 		author = "Tiberian Genesis Team";
 		url = "";
