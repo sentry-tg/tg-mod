@@ -37,6 +37,7 @@ class CfgFunctions
 			class ModuleREADME { file = "\tg_modules\Modules\ModuleREADME.sqf"; };
 			class ModuleIonCannon { file = "\tg_modules\Modules\ModuleIonCannon.sqf"; };
 			class ModuleAtmosphereChanger { file = "\tg_modules\Modules\ModuleAtmosphereChanger.sqf"; };
+			class ModuleIonStorm { file = "\tg_modules\Modules\ModuleIonStorm.sqf"; };
 		};
 		/*
 		class AI {
@@ -684,7 +685,6 @@ class CfgVehicles {
 					};
 				};
 			};
-			
 			class ColorTint: Edit {
 				property = "ModuleAtmosphereChanger_ColorTint";
 				displayName = "RGBA Color Tint";
@@ -722,6 +722,84 @@ class CfgVehicles {
 				tooltip = "If enabled, instead of deleting itself, the module will restart after Stop Condition turned true. It allows a cycle: Start Condition -> Stop Condition -> Start Condition -> etc. Use this if you want to be able to stop and resume the work of the module.";
 				typeName = "NUMBER";
 				defaultValue = 1;
+			};
+		};
+	};
+	
+	class TG_IonStorm_Module : TG_Module {
+		_generalMacro = "TG_IonStorm_Module";
+		scope = 2;
+		is3DEN = 1;
+		isDisposable = 1; // 1 if modules is to be disabled once it's activated (i.e., repeated trigger activation won't work)
+		isGlobal = 1; // 0 for server only execution, 1 for global execution, 2 for persistent global execution
+		displayName = "Ion Storm";
+		function = "TG_fnc_ModuleIonStorm";
+		class ModuleDescription : ModuleDescription {
+			description = "";
+			sync[] = {};
+		};
+		class Attributes : AttributesBase {
+			class Radius : Edit {
+				property = "ModuleIonStorm_Radius";
+				displayName = "Radius";
+				tooltip = "Radius of the Ion Storm";
+				typeName = "NUMBER";
+				defaultValue = 200;
+			};
+			class Rain: CheckboxNumber {
+				property = "ModuleIonStorm_Rain";
+				displayName = "Rain";
+				tooltip = "Enables rain during Ion Storm.";
+				typeName = "NUMBER";
+				defaultValue = "1";
+			};
+			class HitProbability: Edit {
+				property = "ModuleIonStorm_HitProbability";
+				displayName = "Bolt hit probability";
+				tooltip = "Number from 0 to 1. 0 is completely random, inaccurate bolts, while 1 represents bolts striking only buildings \ vehicles \ units.";
+				typeName = "NUMBER";
+				defaultValue = "0.5";
+			};
+			class ConstantTimeBetweenBolts: Edit {
+				property = "ModuleIonStorm_ConstantTimeBetweenBolts";
+				displayName = "Constant delay betwen bolts";
+				tooltip = "Time in seconds between bolts of lightning.";
+				typeName = "NUMBER";
+				defaultValue = "1";
+			};
+			class RandomAdditionTimeBetweenBolts: Edit {
+				property = "ModuleIonStorm_RandomAdditionTimeBetweenBolts";
+				displayName = "Random delay between bolts";
+				tooltip = "Random delay between bolts. The total time = constant + from 0 to random sec.";
+				typeName = "NUMBER";
+				defaultValue = "3";
+			};
+			class NumberOfBolts: Edit {
+				property = "ModuleIonStorm_NumberOfBolts";
+				displayName = "Number of bolts";
+				tooltip = "Set to 0 if you want to control the length of the Ion Storm by Conditions below instead.";
+				typeName = "NUMBER";
+				defaultValue = "20";
+			};
+			
+			class StartCondition: Edit {
+				property = "ModuleIonStorm_StartCondition";
+				displayName = "Start condition";
+				tooltip = "Condition that has to be true in order for this module to start working. Condition is checked every second, locally.";
+				defaultValue = "true";
+			};
+			class StopCondition: Edit {
+				property = "ModuleIonStorm_StopCondition";
+				displayName = "Stop condition";
+				tooltip = "Condition that has to be true in order for this module to stop working, after which the module will delete itself. Condition is checked every second, locally.";
+				defaultValue = "false";
+			};
+			class LoopConditions : CheckboxNumber { 
+				property = "ModuleIonStorm_LoopConditions";
+				displayName = "Loop conditions";
+				tooltip = "If enabled, instead of deleting itself, the module will restart after Stop Condition turned true. It allows a cycle: Start Condition -> Stop Condition -> Start Condition -> etc. Use this if you want to be able to stop and resume the work of the module.";
+				typeName = "NUMBER";
+				defaultValue = 0;
 			};
 		};
 	};
