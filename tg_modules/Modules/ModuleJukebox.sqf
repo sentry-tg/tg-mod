@@ -128,4 +128,6 @@ while { true } do
 
 };
 
-deleteVehicle _logic;
+if !(isNull _logic) then {
+	deleteVehicle _logic;
+};

@@ -24,6 +24,7 @@ switch _mode do {
 		
 		_fnc_distanceCheck = {
 			params ["_logic", "_inside"];
+			if (isNull _logic || isNull player) exitWith { false };
 			_radius = _logic getVariable "Radius";
 			if (_radius <= 0) exitWith { true };
 			call (
@@ -176,8 +177,9 @@ switch _mode do {
 
 		};
 
-		deleteVehicle _logic;
-		
+		if !(isNull _logic) then {
+			deleteVehicle _logic;
+		};
 		
 	};
 	
