@@ -411,6 +411,13 @@ class CfgVehicles {
 				typeName = "NUMBER";
 				defaultValue = 0;
 			};
+			class EnableColorCorrection : CheckboxNumber { //["Default"]
+				property = "ModuleTiberiumDamage_EnableColorCorrection";
+				displayName = "Enable color correction for resurrected players";
+				tooltip = "Players who died in Tiberium fields and resurrected as a creature will see the world differently";
+				typeName = "NUMBER";
+				defaultValue = 1;
+			};
 			class CustomResurrect : Edit {
 				property = "ModuleTiberiumDamage_CustomResurrect";
 				displayName = "Custom resurrection classes";

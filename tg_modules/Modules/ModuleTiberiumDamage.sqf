@@ -24,6 +24,7 @@ _protectiveItems = _logic getVariable "ProtectiveItems";
 _protectiveItems = call compile _protectiveItems;
 
 _resurrectInfantry = _logic getVariable "ResurrectInfantry";
+_enableColorCorrection = _logic getVariable "EnableColorCorrection";
 _customResurrect = _logic getVariable "CustomResurrect";
 _ressurectionConfig = call compile _customResurrect;
 _resurrectPreset = _logic getVariable "ResurrectPreset";
@@ -62,5 +63,5 @@ switch _resurrectPreset do {
 
 if ( _damage > 0 ) then 
 {
-	as = [_radius, _damage, _healedClasses, _protectiveItems, _resurrectInfantry == 1, _ressurectionConfig] execVM "tg_modules\scripts\TiberiumDamage.sqf";
+	as = [_radius, _damage, _healedClasses, _protectiveItems, _resurrectInfantry == 1, _ressurectionConfig, _enableColorCorrection == 1] execVM "tg_modules\scripts\TiberiumDamage.sqf";
 };

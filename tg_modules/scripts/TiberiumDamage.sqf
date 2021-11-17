@@ -7,7 +7,7 @@
 
 if !(isServer) exitWith {};
 
-params [["_radius", 6], ["_damage", 0.05], ["_healedClasses", []], ["_protectiveItems", []], ["_resurrectInfantry", false], ["_ressurectionConfig", []], ["_sleep", 2]];
+params [["_radius", 6], ["_damage", 0.05], ["_healedClasses", []], ["_protectiveItems", []], ["_resurrectInfantry", false], ["_ressurectionConfig", []], ["_enableColorCorrection", true], ["_sleep", 2]];
 
 /* Prevent player's death in singleplayer in order to be able to resurrect him */
 _presetClasses = _ressurectionConfig select { count _x == 4 };
@@ -85,10 +85,9 @@ while { True } do
 						if ( isPlayer _iterable ) then { //-- Try to "resurrect" a player
 							_skipSetDamage = true;
 							[_iterable, _fnc_forcedRagdoll] remoteExec ["call", _iterable];
-							[[_side, _class], {
-								params ["_side", "_class"];
+							[[_side, _class, _enableColorCorrection], {
+								params ["_side", "_class", "_enableColorCorrection"];
 								
-								player allowDamage false;
 								player switchCamera "INTERNAL";
 								cutText ["", "BLACK OUT", 1];
 								sleep 1;
@@ -105,15 +104,48 @@ while { True } do
 								_newBody setVariable [TG_UNIT_IS_IMMUNE_TO_TIBERIUM, true, true];
 								
 								//-- Color
-								private _ppCCBase = [0.199, 0.587, 0.114, 0.0];
-								private _ppCCIn = [1, 1, 0, [0.0, 0.0, 0.0, 0.5], [4.0, 1.0, 1.0, 0.4], _ppCCBase];
-								private _ppCCOut = [1, 1, 0, [0.0, 0.0, 0.0, 0.0], [1.0, 1.0, 1.0, 1.0], _ppCCBase];
-								
-								private _ppCol = ppEffectCreate ["colorCorrections", 1550]; 
-								_ppCol ppEffectAdjust _ppCCIn;
-								_ppCol ppEffectCommit 2;
-								_ppCol ppEffectEnable true;
-								
+								if (_enableColorCorrection) then 
+								{									
+									[_newBody] spawn 
+									{
+										params ["_newBody"];
+										
+										private _ppCCBase = [0.199, 0.587, 0.114, 0.0];
+										private _ppCCIn = [1, 1, 0, [0.0, 0.0, 0.0, 0.5], [4.0, 1.0, 1.0, 0.4], _ppCCBase];
+										private _ppCCOut = [1, 1, 0, [0.0, 0.0, 0.0, 0.0], [1.0, 1.0, 1.0, 1.0], _ppCCBase];
+										
+										private _ppCol = -1;
+										private _priority = 1550;
+										while { 
+											_ppCol = ppEffectCreate ["colorCorrections", _priority]; 
+											_ppCol < 0 
+										} do { 
+											_priority = _priority + 1; 
+										}; 
+										
+										private _colorCorrected = false;
+										while {alive _newBody} do {
+											if (player != _newBody && _colorCorrected) then {
+												_ppCol ppEffectAdjust _ppCCOut;
+												_ppCol ppEffectCommit 0;
+												_ppCol ppEffectEnable false;
+												_colorCorrected = false;
+											};
+											if (player == _newBody && !_colorCorrected) then {
+												_ppCol ppEffectAdjust _ppCCIn;
+												_ppCol ppEffectCommit 2;
+												_ppCol ppEffectEnable true;
+												_colorCorrected = true;
+											};
+											sleep 1;
+										};
+										_ppCol ppEffectAdjust _ppCCOut;
+										_ppCol ppEffectCommit 2;
+										sleep 2;
+										_ppCol ppEffectEnable false;
+										ppEffectDestroy _ppCol;
+									};
+								};
 								cutText ["", "BLACK IN", 10];
 								
 							}] remoteExec ["spawn", _iterable]; 
