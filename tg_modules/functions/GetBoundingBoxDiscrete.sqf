@@ -1,3 +1,20 @@
+/* ----------------------------------------------------------------------------
+Function: TG_fnc_GetBoundingBoxDiscrete
+
+Description:
+	Get a slightly bigger bounding box with each side dividable by _step. 
+	This function is used to perfectly encase construction sites with fences of given width. 
+	
+Parameters:
+    _building - Building or other object with bounding box [Object].
+    _step - Number by which each side of the new bounding box will be dividable [Number].
+    
+Returns:
+    Slightly bigger 2D bounding box of the _building which can fit a whole number of _step on each side [Array of 4 coordinates representing corners of the new bounding box].
+
+Author:
+    kaydol
+---------------------------------------------------------------------------- */
 
 params ["_building", "_step"];
 
