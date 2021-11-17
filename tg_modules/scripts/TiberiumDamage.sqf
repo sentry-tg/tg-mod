@@ -45,15 +45,17 @@ while { True } do
 		private _iterable = _x;
 		private _isInsideVehicle = vehicle _iterable != _iterable;
 		private _isImmune = _iterable getVariable [TG_UNIT_IS_IMMUNE_TO_TIBERIUM, false];
-		if !( _isInsideVehicle || _isImmune ) then 
+		private _isHealed = typeOf _iterable in _healedClasses;
+		
+		if !( _isInsideVehicle || (_isImmune && !_isHealed) ) then 
 		{
 			_tiberiumIsNear = count ( _iterable nearObjects [TIBERIUM_ROOT_CLASS, _radius] ) > 0; 
 			if ( _tiberiumIsNear ) then 
 			{
 				_sign = 1;
-				if ( typeOf _iterable in _healedClasses ) then { _sign = -1 };
+				if ( _isHealed ) then { _sign = -1 };
 				_newDamageLevel = (( getDammage _iterable ) + _sign * _damage );
-				_newDamageIsLethal = _newDamageLevel > 0.9;
+				_newDamageIsLethal = _newDamageLevel > 0.9 && !_isHealed;
 				
 				/*
 					This is here because not every class from addon presets 
@@ -86,6 +88,7 @@ while { True } do
 							[[_side, _class], {
 								params ["_side", "_class"];
 								
+								player allowDamage false;
 								player switchCamera "INTERNAL";
 								cutText ["", "BLACK OUT", 1];
 								sleep 1;
