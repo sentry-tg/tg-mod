@@ -17,7 +17,7 @@
 	
 */
 
-params ["_pos", "_objRadius", "_searchRadius", "_ignore", "_params"];
+params ["_pos", "_objRadius", "_searchRadius", "_ignore", "_params", ["_debug", false]];
 
 /* Proximity check */
 private _objects = _pos nearObjects _searchRadius;
@@ -39,7 +39,7 @@ for [{_i = 0}, {_i < _count}, {_i = _i + 1}] do
 		/* If the object is within objRadius, count it as intersection */
 		if ( _pos distance2D _obj <= _objRadius ) exitWith {
 			_obstructed = true;
-			//hintSilent format ["Intersection with %1\n%2", _obj];
+			if (_debug) then { hintSilent format ["Intersection with %1 %2", typeOf _obj, _obj]; };
 		};
 		
 		/* Dir from _pos to the object, a normalized vector */
@@ -51,7 +51,7 @@ for [{_i = 0}, {_i < _count}, {_i = _i + 1}] do
 		/* Check if that end point lies within _obj's bounding box */
 		if ( _closestPos InPolygon ( _obj call TG_fnc_GetCorners )) exitWith { 
 			_obstructed = true;
-			//hintSilent format ["Intersection with %1\n%2", _obj];
+			if (_debug) then { hintSilent format ["Intersection with %1 %2", typeOf _obj, _obj]; };
 		};
 		
 	};
