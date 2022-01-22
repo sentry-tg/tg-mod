@@ -633,13 +633,13 @@ class CfgVehicles {
 	class TG_IonCannon_Module : TG_Module {
 		_generalMacro = "TG_IonCannon_Module";
 		scope = 2;
-		isDisposable = 1; // 1 if modules is to be disabled once it's activated (i.e., repeated trigger activation won't work)
+		isDisposable = 0; // 1 if modules is to be disabled once it's activated (i.e., repeated trigger activation won't work)
 		isGlobal = 1; // 0 for server only execution, 1 for global execution, 2 for persistent global execution
 		displayName = "Ion Cannon";
 		function = "TG_fnc_ModuleIonCannon";
 		class ModuleDescription : ModuleDescription {
 			description = "Module that creates Ion Beam at its coordinates.";
-			sync[] = {};
+			sync[] = { EmptyDetector };
 		};
 		class Attributes : AttributesBase {
 			class beamColour : Edit {

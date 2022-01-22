@@ -21,8 +21,14 @@ switch _mode do {
 		_numberOfBolts = _logic getVariable "NumberOfBolts";
 		_hitProbability = _logic getVariable "HitProbability";
 		
-		_startCondition = compile ( _logic getVariable ["StartCondition", "true"] );
-		_stopCondition = compile ( _logic getVariable ["StopCondition", "false"] );
+		_startCondition = _logic getVariable ["StartCondition", "true"];
+		if (_startCondition isEqualType false) then { _startCondition = {_startCondition} };
+		if (_startCondition isEqualType "") then { _startCondition = compile _startCondition };
+		
+		_stopCondition = _logic getVariable ["StopCondition", "false"];
+		if (_stopCondition isEqualType false) then { _stopCondition = {_stopCondition} };
+		if (_stopCondition isEqualType "") then { _stopCondition = compile _stopCondition };
+		
 		_loopConditions = ( _logic getVariable ["LoopConditions", 0] ) == 1;
 		
 		_fnc_distanceCheck = {

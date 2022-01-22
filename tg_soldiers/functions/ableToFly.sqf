@@ -8,7 +8,7 @@ params ["_unit"];
 
 if ( isNull _unit ) exitWith { False };
 
-_jetpacks = ["GDI_Jetpack_BP"]; // case sensitive
+_jetpacks = ["TG_JumpJet_GDI_BP_01"]; // case sensitive
 
 if ( vehicle _unit == _unit && backpack _unit in _jetpacks ) exitWith { True };
 

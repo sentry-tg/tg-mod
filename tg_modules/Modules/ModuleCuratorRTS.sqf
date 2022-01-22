@@ -330,26 +330,6 @@ if (_activated) then {
 		
 		///////////////////////////////////////////////////////////
 		
-		
-		private _fnc_getOwner = {
-			params ["_module"];
-
-			if ( typeOf _module == "SideBLUFOR_F" ) exitWith { WEST };
-			if ( typeOf _module == "SideOPFOR_F" ) exitWith { EAST };
-			if ( typeOf _module == "SideResistance_F" ) exitWith { RESISTANCE };
-
-			_side = sideLogic;
-
-			{
-				if ( typeOf _x == "SideBLUFOR_F" ) exitWith { _side = WEST };
-				if ( typeOf _x == "SideOPFOR_F" ) exitWith { _side = EAST };
-				if ( typeOf _x == "SideResistance_F" ) exitWith { _side = RESISTANCE };
-			}
-			forEach synchronizedObjects _module;
-
-			_side
-		};
-
 		//-- Global definitions
 		GDI = west; siGDI = 0;
 		NOD = east; siNOD = 1;
@@ -370,8 +350,8 @@ if (_activated) then {
 				private _cfgBuilding = _x select _i;
 				
 				private _configName = configName _cfgBuilding;
-				call compile (_configName + " = " + str(_i));
-				
+				//call compile (_configName + " = " + str(_i)); // Why did I do this...?
+				//diag_log format["%1 = %2", _configName , _i];
 				private _Name = getText (_cfgBuilding >> "Name");
 				private _Cost = getNumber (_cfgBuilding >> "Cost");
 				private _BuildTime = getNumber (_cfgBuilding >> "BuildTime");
@@ -392,7 +372,7 @@ if (_activated) then {
 				_array pushBack _def;
 				
 				//-- Store conyard cost into a global variable
-				if (_configName == "GDI_ConstructionYard") then { 
+				if (_configName == "GDI_ConstructionYard") then { // if (_BuildingType isKindOf "TG_ConstructionYard") then {
 					CONYARD_COST = _Cost;
 				};
 			};
@@ -402,26 +382,46 @@ if (_activated) then {
 			missionConfigFile >> "CfgTGBuildingDefinitions" >> "GDI",
 			missionConfigFile >> "CfgTGBuildingDefinitions" >> "NOD"
 		];
-
+		
+		// Had to scrap this because buildings does not work with 'unitAddons' command
+		// 1. Get all buildable units\vehicles\buildings from BuildingDefs for every side
+		//_allBuildings = [];
+		//{ _allBuildings = _allBuildings + ([_x # 1, SELECT_BUILDING_TYPE] call TG_fnc_BuildingDefs); } forEach BuildingDefs;
+		//diag_log format ["_allBuildings=%1", _allBuildings];
+		// 2. Remove duplicated classnames (if something can be built by several sides it will be duplicated in _allBuildings)
+		//_allBuildings = _allBuildings arrayIntersect _allBuildings; 
+		//diag_log format ["_allBuildings=%1", _allBuildings];
+		// 3. Get all CfgPatches addon names for every classname and flatten them 
+		//_addons = flatten (_allBuildings apply {unitAddons _x});
+		//diag_log format ["_addons=%1", _addons];
+		// 4. Remove duplicated CfgPatches addon names 
+		//_addons = _addons arrayIntersect _addons;
+		//diag_log format ["_addons=%1", _addons];
+		
+		
 		/* Only activated addons can be added (i.e., addons preloaded by the mission). All official addons are activated by default, but unofficial ones are activated only when an object contained in such addon is present in the mission. If that's not the case, you can use activateAddons or BIS_fnc_activateAddons to activate them. This is however possible only at the mission start - on the fly activation is not possible */
-
-		//_curator remoteExec ["removeAllCuratorAddons", 2];
-		[CURATOR_ADDONS] remoteExec ["activateAddons", 2];
+		[CURATOR_ADDONS] remoteExec ["activateAddons", 2]; // Is this even needed in A3 ? Seems to be an OFP derelict
+		_curator remoteExec ["removeAllCuratorAddons", 2]; 
 		[_curator, CURATOR_ADDONS] remoteExec ["addCuratorAddons", 2];
-
-
+		//[_curator, ["Land_TiberiumRefinery_GDI_01","Land_Barracks_GDI_01","Land_Wall_GDI_01","Land_Wall_GDI_02","Land_Wall_GDI_03","Land_Wall_GDI_04","Land_ComponentTower_GDI_01","Land_Gate_GDI_01","Land_WarFactory_GDI_01","Land_Radar_GDI_01","Land_TechCenter_GDI_01"]] remoteExec ["addCuratorAddons", 2];
+		
 		[_curator, (BuildingDefs # _curatorSi) # 1] call TG_fnc_CuratorSetBuildingDefs;
-
+		
+		// "CuratorObjectRegistered" is triggered when player enters curator interface. 
+		// Assign curator cost to every object in the game. This is the primary method 
+		// that a mission designer can use to limit the objects a curator can place.
+		// The 'input' variable contains classes from.... ??????
 		private _id = _curator addEventHandler [
 			"CuratorObjectRegistered",
 			{
 				params ['_curator', '_input'];
+				private _canBeBuiltClasses = ([_curator] call TG_fnc_CuratorGetCanBeBuiltClasses) apply {toLowerANSI _x};
+				inpuut = _input;
+				diag_log format ["Triggered!!! %1", _input ];
 				
-				private _canBeBuiltClasses = [_curator] call TG_fnc_CuratorGetCanBeBuiltClasses;
-					
 				private _costs = [];
 				{
-					private _cost = [_x in _canBeBuiltClasses,0];
+					private _cost = [(toLowerANSI _x) in _canBeBuiltClasses,0];
 					_costs = _costs + [_cost];
 				}
 				forEach _input; 

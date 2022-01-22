@@ -17,8 +17,15 @@ _logic call compile ( _logicName + "=_this" );
 /* Retreiving variables stored in the module */
 _announceTracks = ( _logic getVariable ["AnnounceTracks", 0] ) == 1;
 _stopMusic = ( _logic getVariable ["StopMusic", 0] ) == 1;
-_startCondition = compile ( _logic getVariable ["StartCondition", "true"] );
-_stopCondition = compile ( _logic getVariable ["StopCondition", "false"] );
+
+_startCondition = _logic getVariable ["StartCondition", "true"];
+if (_startCondition isEqualType false) then { _startCondition = {_startCondition} };
+if (_startCondition isEqualType "") then { _startCondition = compile _startCondition };
+
+_stopCondition = _logic getVariable ["StopCondition", "false"];
+if (_stopCondition isEqualType false) then { _stopCondition = {_stopCondition} };
+if (_stopCondition isEqualType "") then { _stopCondition = compile _stopCondition };
+
 _loopConditions = ( _logic getVariable ["LoopConditions", 0] ) == 1;
 _DisableACEVolumeUpdate = ( _logic getVariable ["DisableACEVolumeUpdate", 0] ) == 1;
 _presetMode = _logic getVariable ["Preset", 0];

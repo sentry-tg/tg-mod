@@ -18,8 +18,15 @@ switch _mode do {
 		
 		_radius = _logic getVariable "Radius";
 		_preset = _logic getVariable "Preset";
-		_startCondition = compile ( _logic getVariable ["StartCondition", "true"] );
+		
+		_startCondition = _logic getVariable ["StartCondition", "true"];
+		if (_startCondition isEqualType false) then { _startCondition = {_startCondition} };
+		if (_startCondition isEqualType "") then { _startCondition = compile _startCondition };
+		
 		_stopCondition = compile ( _logic getVariable ["StopCondition", "false"] );
+		if (_stopCondition isEqualType false) then { _stopCondition = {_stopCondition} };
+		if (_stopCondition isEqualType "") then { _stopCondition = compile _stopCondition };
+		
 		_loopConditions = ( _logic getVariable ["LoopConditions", 0] ) == 1;
 		
 		_fnc_distanceCheck = {
